@@ -1,0 +1,10 @@
+# Actual commands used for the original teaching experiment (repository root)
+.venv/bin/python -m aml.tinystories --output data/week1-raw --train-rows 512 --val-rows 128 > runs/week1-data-download.log
+.venv/bin/python -m aml.tokenizer --input data/week1-raw/train.txt --output data/week1-tokenizer.json --vocab-size 8192
+.venv/bin/python -m aml.data --train data/week1-raw/train.txt --val data/week1-raw/val.txt --tokenizer data/week1-tokenizer.json --output data/week1-tokens > runs/week1-data-encode.log
+.venv/bin/python -m aml.train --config configs/100m-mac.json --data data/week1-tokens --output runs/week1-100m-mac --device mps --stop-after 5 > runs/week1-training-first.log
+.venv/bin/python -m aml.train --config configs/100m-mac.json --data data/week1-tokens --output runs/week1-100m-mac --device mps --resume > runs/week1-training-resume.log
+.venv/bin/python -m aml.generate --checkpoint runs/week1-100m-mac/latest.pt --prompt 'Once upon a time' --temperature 0 --max-new-tokens 64 --device mps > runs/week1-generation.txt
+
+# Post-training verification and evidence rendering (does not retrain the model)
+.venv/bin/python -m scripts.week1_evidence > reports/week1/checkpoint-verification.log

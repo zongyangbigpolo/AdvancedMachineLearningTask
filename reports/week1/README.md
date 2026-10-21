@@ -2,6 +2,41 @@
 
 **Status:** the declared, bounded teaching experiment is complete. This is not a fully pretrained model, a capability benchmark, or the final NeurIPS submission.
 
+## Screenshot evidence and executed commands
+
+These are actual browser captures of the saved training records and a fresh inspection of the real local checkpoint. They were captured **after training**, not during the original run. Screenshots are a readable supplement, not independent proof or a replacement for reproducible logs and checkpoint hashes.
+
+![Actual saved training results and unedited generation failure](evidence/training-results.png)
+
+![Actual checkpoint inspection, hash, parameter count and Adam steps](evidence/checkpoint-verification.png)
+
+![Original logs showing stop at update 5, resume at update 6 and completion at update 100](evidence/training-log.png)
+
+The exact original command transcript, including dataset preparation, stdout redirection and generation, is in [evidence/commands.txt](evidence/commands.txt). The training commands were executed from the repository root:
+
+```bash
+.venv/bin/python -m aml.train \
+  --config configs/100m-mac.json --data data/week1-tokens \
+  --output runs/week1-100m-mac --device mps --stop-after 5 \
+  > runs/week1-training-first.log
+
+.venv/bin/python -m aml.train \
+  --config configs/100m-mac.json --data data/week1-tokens \
+  --output runs/week1-100m-mac --device mps --resume \
+  > runs/week1-training-resume.log
+```
+
+Original stdout is published without editing in [the first segment](evidence/week1-training-first.log) and [the resumed segment](evidence/week1-training-resume.log). Their parsed records were checked against `metrics.jsonl` for every step from 0 through 100.
+
+The post-training verification command was:
+
+```bash
+.venv/bin/python -m scripts.week1_evidence \
+  > reports/week1/checkpoint-verification.log
+```
+
+This reads the actual 1.18 GB checkpoint, counts stored weight parameters, checks all weights are finite, verifies Adam's 100-update states, compares the published SHA-256 and training-source fingerprints, and verifies the original logs. Its output is preserved as [checkpoint-verification.log](checkpoint-verification.log) and [audit.json](evidence/audit.json). The helper's explanation is in [the evidence guide](../../docs/week1/evidence.md).
+
 ## Problem and motivation
 
 Can a single-device pipeline, with a hand-written byte BPE tokenizer and decoder-only Transformer, actually optimize an approximately 0.1B-parameter model, resume from a checkpoint, and produce autoregressive output on a 16 GiB Apple Silicon machine?

@@ -1,0 +1,18 @@
+{
+  "verification": "PASS: actual local checkpoint read after training",
+  "checkpoint": "runs/week1-100m-mac/latest.pt",
+  "sha256": "17ff9f6a715f7b50da993747bf8e3a354076fb25ee3b47ff741f1fe1eee0da58",
+  "bytes": 1179993355,
+  "actual_weight_parameters": 98323200,
+  "completed_step": 100,
+  "adam_parameter_states": 86,
+  "adam_steps": [
+    100
+  ],
+  "all_weights_finite": true,
+  "source_fingerprints_match": true,
+  "original_stdout_matches_metrics": true,
+  "recorded_device": "mps",
+  "verification_device": "cpu",
+  "disclosure": "Post-training audit, not an image captured during the original training"
+}

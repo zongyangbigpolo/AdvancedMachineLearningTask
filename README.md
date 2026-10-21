@@ -6,6 +6,8 @@
 
 **Week 1 入口：[七天任务与逐行代码讲解](docs/week1/README.md)。** 已在本地 M4 Mac 上真实训练 98,323,200 参数的模型，完成 100 步 / 12,800 token 的教学预算及中断恢复。验证 loss 从 8.83 降到 3.51，但生成仍重复；这是工程闭环，不是充分预训练。[英文实验记录、真实曲线与失败样例](reports/week1/README.md)均已保存。权重保留在本地，未提交 Git。
 
+训练结果、原始日志和 checkpoint 核验的 **[真实截图及完整执行命令](reports/week1/README.md#screenshot-evidence-and-executed-commands)** 已随报告提交。截图是在训练后读取记录与真实权重生成的，不伪装成训练时的终端画面。
+
 ## 目录与阶段
 
 | 路径 | 用途 / 当前状态 |
