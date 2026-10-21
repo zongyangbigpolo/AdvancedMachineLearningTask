@@ -1,0 +1,12 @@
+The small robot reads a book. The book tells a story about a garden.
+In the garden a child plants a seed. The seed needs water and light.
+Every morning the robot brings water. Every evening the child reads a story.
+A bird sits in the tree and sings. The robot listens to the bird.
+The child asks the robot to count the seeds. There are one, two, three seeds.
+The robot writes the answer in a notebook. The child checks the answer.
+A small plant grows beside the tree. The child smiles and brings more water.
+When it rains the robot stays inside. It reads a book about the sun.
+The sun returns and the garden is bright. The child opens the little gate.
+The robot and the child walk home. They tell a story about their garden.
+小机器人每天读书，也每天给花园浇水。
+孩子数了三颗种子，小机器人把结果写在本子上。

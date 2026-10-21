@@ -1,0 +1,58 @@
+{
+  "experiment": "week1-100m-mac-teaching",
+  "date": "2026-10-21",
+  "status": "Completed declared 100-update teaching budget; not full pretraining",
+  "hardware": {
+    "chip": "Apple M4",
+    "gpu_cores": 10,
+    "unified_memory_bytes": 17179869184
+  },
+  "parameters": 98323200,
+  "steps": 100,
+  "sampled_training_tokens": 12800,
+  "resume_after_step": 5,
+  "initial_val_loss": 8.829942464828491,
+  "final_val_loss": 3.513790726661682,
+  "first_train_loss": 8.958642959594727,
+  "last_train_loss": 2.9360687732696533,
+  "measured_training_step_seconds_sum": 33.49547275272198,
+  "timing_scope": "Synchronized sampling/forward/backward/update only; excludes evaluation, saving, setup, tokenizer training and downloading; NOT end-to-end time",
+  "validation_protocol": {
+    "fixed_seed": 43,
+    "batches": 4,
+    "batch_size": 1,
+    "context": 128,
+    "predicted_positions": 512,
+    "possible_window_overlap": true
+  },
+  "tokenizer_vocab_size": 5696,
+  "model_vocab_slots": 8192,
+  "data": {
+    "train": {
+      "source_sha256": "fa2738924ad3e00f6468670b0504834f5eb8220b39e42e1b5a36472c89d089b0",
+      "token_sha256": "4a300b267a8f23c411dda083f940e85e046a1887c8adc45a0d30f48503adaaa9",
+      "documents": 512,
+      "tokens": 172991
+    },
+    "val": {
+      "source_sha256": "8ad8b2b71b0243dfd18ff7a92be033e02eacb5b67b17a098201d2da4ccea4509",
+      "token_sha256": "f52263be258f58ec7cf615008e34cd6da4e23ed228ed0b68244cf5afb994191f",
+      "documents": 128,
+      "tokens": 39574
+    }
+  },
+  "checkpoint": {
+    "local_path": "runs/week1-100m-mac/latest.pt",
+    "bytes": 1179993355,
+    "sha256": "17ff9f6a715f7b50da993747bf8e3a354076fb25ee3b47ff741f1fe1eee0da58",
+    "published_to_git": false
+  },
+  "limitations": [
+    "Only 12800 training tokens, severe undertraining",
+    "Prefix subset selection is not representative sampling",
+    "Only 512 validation positions, not full validation perplexity",
+    "Greedy generation repeats frequent tokens",
+    "Single seed and single device, no performance scaling claim",
+    "No revision-pinned upstream dataset or near-duplicate audit"
+  ]
+}

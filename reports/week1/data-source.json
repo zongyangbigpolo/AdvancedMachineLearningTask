@@ -1,0 +1,58 @@
+{
+  "dataset": "roneneldan/TinyStories",
+  "authors": "Ronen Eldan and Yuanzhi Li",
+  "source": "https://huggingface.co/datasets/roneneldan/TinyStories",
+  "license": "CDLA-Sharing-1.0",
+  "license_url": "https://cdla.dev/sharing-1-0/",
+  "selection": "First N rows of upstream train and validation splits; no random sampling",
+  "modification": "Whitespace normalized; one complete story per line",
+  "revision": "Live dataset-server responses, not revision-pinned; verify page and file hashes",
+  "files": {
+    "train.txt": {
+      "documents": 512,
+      "sha256": "fa2738924ad3e00f6468670b0504834f5eb8220b39e42e1b5a36472c89d089b0"
+    },
+    "val.txt": {
+      "documents": 128,
+      "sha256": "8ad8b2b71b0243dfd18ff7a92be033e02eacb5b67b17a098201d2da4ccea4509"
+    }
+  },
+  "pages": {
+    "train": [
+      {
+        "url": "https://datasets-server.huggingface.co/rows?dataset=roneneldan%2FTinyStories&config=default&split=train&offset=0&length=100",
+        "sha256": "39361c226bcf150c3cd3adefecac10bf90a7ba60275538ae24bcd34563ccb556"
+      },
+      {
+        "url": "https://datasets-server.huggingface.co/rows?dataset=roneneldan%2FTinyStories&config=default&split=train&offset=100&length=100",
+        "sha256": "1415bdd2bddb6355212db65d130d1908a4a530d5da7cd55b84e962e0b71c0b62"
+      },
+      {
+        "url": "https://datasets-server.huggingface.co/rows?dataset=roneneldan%2FTinyStories&config=default&split=train&offset=200&length=100",
+        "sha256": "5da1d90e1c0f7e048532a729d51a109b8a3145bb9a3851297be4819320c1829a"
+      },
+      {
+        "url": "https://datasets-server.huggingface.co/rows?dataset=roneneldan%2FTinyStories&config=default&split=train&offset=300&length=100",
+        "sha256": "40600265ed678b7c19d210a04d748ad236a5b184f3adb2c1369e3f0a07c8dabb"
+      },
+      {
+        "url": "https://datasets-server.huggingface.co/rows?dataset=roneneldan%2FTinyStories&config=default&split=train&offset=400&length=100",
+        "sha256": "c1d99635dbd6eb9b3eedb23dac59e30eca0f1a8c6489646c7cfaacd2d1d79fe7"
+      },
+      {
+        "url": "https://datasets-server.huggingface.co/rows?dataset=roneneldan%2FTinyStories&config=default&split=train&offset=500&length=12",
+        "sha256": "a8c28b33db8269f9d878ba0492372ddc56ee2b28239799ac29306f5a05864325"
+      }
+    ],
+    "validation": [
+      {
+        "url": "https://datasets-server.huggingface.co/rows?dataset=roneneldan%2FTinyStories&config=default&split=validation&offset=0&length=100",
+        "sha256": "4653c9fedd00722e776b9485fd866a2ab55ef709daaceb556de1b342a54cc9c8"
+      },
+      {
+        "url": "https://datasets-server.huggingface.co/rows?dataset=roneneldan%2FTinyStories&config=default&split=validation&offset=100&length=28",
+        "sha256": "df614c00dc5d09d6e711483d3c0f5e967d026ad56482c034413bd73f3dd1df95"
+      }
+    ]
+  }
+}

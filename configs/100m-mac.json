@@ -1,0 +1,23 @@
+{
+  "model": {
+    "vocab_size": 8192,
+    "context_length": 128,
+    "d_model": 768,
+    "n_layers": 12,
+    "n_heads": 12,
+    "d_ff": 2304
+  },
+  "train": {
+    "steps": 100,
+    "batch_size": 1,
+    "grad_accum": 1,
+    "learning_rate": 0.0003,
+    "min_lr_ratio": 0.1,
+    "warmup_steps": 10,
+    "weight_decay": 0.1,
+    "grad_clip": 1.0,
+    "eval_interval": 10,
+    "eval_batches": 4,
+    "seed": 42
+  }
+}
