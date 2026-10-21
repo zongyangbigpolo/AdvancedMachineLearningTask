@@ -1,6 +1,10 @@
-# Week 1: A From-Scratch 98M Language Model on Apple Silicon
+# Stage 1: A From-Scratch 98M Language Model on Apple Silicon
 
 **Status:** the declared, bounded teaching experiment is complete. This is not a fully pretrained model, a capability benchmark, or the final NeurIPS submission.
+
+**Reading entry:** [Stage 1 README](../README.md) explains the task, terminology, execution order, design choices and results in Chinese. This directory is its evidence appendix, not a separate learning path.
+
+**Directory migration:** all code and artifacts now belong to `stages/01-basics/`; run current commands from that directory. Original screenshots, logs, command transcripts and training metadata remain unchanged. Their `week1` labels and former paths identify a historical experiment, not a required weekly schedule.
 
 ## Screenshot evidence and executed commands
 
@@ -12,7 +16,7 @@ These are actual browser captures of the saved training records and a fresh insp
 
 ![Original logs showing stop at update 5, resume at update 6 and completion at update 100](evidence/training-log.png)
 
-The exact original command transcript, including dataset preparation, stdout redirection and generation, is in [evidence/commands.txt](evidence/commands.txt). The training commands were executed from the repository root:
+The exact original command transcript, including dataset preparation, stdout redirection and generation, is in [evidence/commands.txt](evidence/commands.txt). It was executed from the old repository-root layout. The same training commands now run after `cd stages/01-basics`:
 
 ```bash
 .venv/bin/python -m aml.train \
@@ -28,14 +32,14 @@ The exact original command transcript, including dataset preparation, stdout red
 
 Original stdout is published without editing in [the first segment](evidence/week1-training-first.log) and [the resumed segment](evidence/week1-training-resume.log). Their parsed records were checked against `metrics.jsonl` for every step from 0 through 100.
 
-The post-training verification command was:
+The current post-training verification command is, from `stages/01-basics/`:
 
 ```bash
-.venv/bin/python -m scripts.week1_evidence \
-  > reports/week1/checkpoint-verification.log
+.venv/bin/python -m scripts.evidence \
+  > reports/checkpoint-verification.log
 ```
 
-This reads the actual 1.18 GB checkpoint, counts stored weight parameters, checks all weights are finite, verifies Adam's 100-update states, compares the published SHA-256 and training-source fingerprints, and verifies the original logs. Its output is preserved as [checkpoint-verification.log](checkpoint-verification.log) and [audit.json](evidence/audit.json). The helper's explanation is in [the evidence guide](../../docs/week1/evidence.md).
+This reads the actual 1.18 GB checkpoint, counts stored weight parameters, checks all weights are finite, verifies Adam's 100-update states, compares the published SHA-256 and training-source fingerprints, and verifies the original logs. Its output is preserved as [checkpoint-verification.log](checkpoint-verification.log) and [audit.json](evidence/audit.json). The helper's explanation is in [the evidence guide](../docs/code/evidence.md).
 
 ## Problem and motivation
 
@@ -89,7 +93,7 @@ Thus, the result establishes the **engineering training/resume/evaluation/genera
 
 ## Reproduction and artifacts
 
-Commands and exact budget: [Week 1 runbook](../../docs/week1/runbook.md). Source explanations: [Week 1 learning guide](../../docs/week1/README.md).
+Commands and exact budget: [Stage 1 runbook](../docs/code/runbook.md). Source explanations: [optional code appendix](../docs/code/README.md).
 
 The checkpoint remains at `runs/week1-100m-mac/latest.pt` on the execution machine. It is deliberately not committed to Git: the file exceeds GitHub's normal single-file limit, and a fresh clone must rerun the bounded experiment to obtain weights. This repository publishes lightweight evidence, configuration and source code, not a hosted model-weight download.
 

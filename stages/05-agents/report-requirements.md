@@ -1,6 +1,8 @@
 # Final report and live demo
 
-The eventual deliverable is an **English report in the required NeurIPS format**, plus a reproducible live demo. The [Week 1 teaching report](week1/README.md) records an actual bounded 98M run, not full pretraining. Confirm the required year/template before adding the official style files.
+This is an appendix to the [Stage 5 README](README.md), not a separate stage or weekly task.
+
+The eventual deliverable is an **English report in the required NeurIPS format**, plus a reproducible live demo. The [Stage 1 teaching report](../01-basics/reports/README.md) records an actual bounded 98M run, not full pretraining. Confirm the required year/template before adding the official style files.
 
 The report should answer four concrete questions:
 

@@ -14,7 +14,7 @@ from aml.tinystories import fetch_rows, prepare
 from aml.tokenizer import ByteBPE
 
 
-class Week1Tests(unittest.TestCase):
+class Stage1Tests(unittest.TestCase):
     def test_rope_rotation_and_rmsnorm(self):
         x = torch.randn(2, 3, 4, 8)
         rotated = rope(x)
@@ -68,7 +68,7 @@ class Week1Tests(unittest.TestCase):
     def test_walkthrough_covers_each_nonempty_source_line(self):
         for name in ("tokenizer", "data", "model", "train", "generate", "tinystories"):
             lines = Path(f"aml/{name}.py").read_text(encoding="utf-8").splitlines()
-            guide = Path(f"docs/week1/{name}.md").read_text(encoding="utf-8")
+            guide = Path(f"docs/code/{name}.md").read_text(encoding="utf-8")
             covered = {int(value) for value in re.findall(r"^\| (\d+) \|", guide, flags=re.MULTILINE)}
             expected = {index for index, line in enumerate(lines, 1) if line.strip()}
             self.assertEqual(covered, expected, f"Update {name} walkthrough after changing source")

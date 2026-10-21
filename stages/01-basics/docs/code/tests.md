@@ -1,6 +1,6 @@
 # 测试代码阅读指南
 
-源码：[test_basics.py](../../tests/test_basics.py) 与 [test_week1.py](../../tests/test_week1.py)。这里允许 PyTorch 的 CE / SDPA **只作为测试 oracle**；生产模型仍然走手写实现。以下按语句说明；跨行表达式的括号仅作语法闭合。
+源码：[test_basics.py](../../tests/test_basics.py) 与 [test_stage1.py](../../tests/test_stage1.py)。这里允许 PyTorch 的 CE / SDPA **只作为测试 oracle**；生产模型仍然走手写实现。以下按语句说明；跨行表达式的括号仅作语法闭合。
 
 ## test_basics.py
 
@@ -181,7 +181,7 @@
 | 193 | 限制 CPU 线程。 |
 | 194 | 启动 unittest。 |
 
-## test_week1.py
+## test_stage1.py
 
 | 源码行 | 含义 |
 | --- | --- |
@@ -197,7 +197,7 @@
 | 12 | 小模型、RMSNorm 和 RoPE。 |
 | 13 | 数据下载和整理入口。 |
 | 14 | 纯 byte tokenizer。 |
-| 17 | 额外 Week 1 回归测试。 |
+| 17 | 额外第一阶段回归测试。 |
 | 18 | 独立检验位置旋转与归一化公式。 |
 | 19 | 创建 `[B,H,T,Dh]` 随机输入。 |
 | 20 | 应用 RoPE。 |

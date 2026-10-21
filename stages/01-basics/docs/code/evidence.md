@@ -1,31 +1,35 @@
 # 截图证据、实际命令与核验脚本
 
-直接查看[报告中的三张截图](../../reports/week1/README.md#screenshot-evidence-and-executed-commands)：
+直接查看[报告中的三张截图](../../reports/README.md#screenshot-evidence-and-executed-commands)：
 
 | 截图 | 展示什么 |
 | --- | --- |
-| [training-results.png](../../reports/week1/evidence/training-results.png) | 真实保存的 loss 曲线、参数规模与重复生成失败样例 |
-| [checkpoint-verification.png](../../reports/week1/evidence/checkpoint-verification.png) | 重新读取实际 checkpoint 后得到的 SHA、参数数量、Adam update 和有限值检查 |
-| [training-log.png](../../reports/week1/evidence/training-log.png) | 原始 stdout 中的 step 0、5、6、100，证明分段运行记录前后衔接 |
+| [training-results.png](../../reports/evidence/training-results.png) | 真实保存的 loss 曲线、参数规模与重复生成失败样例 |
+| [checkpoint-verification.png](../../reports/evidence/checkpoint-verification.png) | 重新读取实际 checkpoint 后得到的 SHA、参数数量、Adam update 和有限值检查 |
+| [training-log.png](../../reports/evidence/training-log.png) | 原始 stdout 中的 step 0、5、6、100，证明分段运行记录前后衔接 |
 
-截图是在训练完成后用浏览器拍摄的记录查看页，不是原始训练正在运行的终端，也不是单独足以证明模型质量的材料。完整命令在 [commands.txt](../../reports/week1/evidence/commands.txt)，原始两段 stdout 和机器可读核验结果也随报告提交。不会用图片替代日志或隐藏失败输出。
+截图是在训练完成后用浏览器拍摄的记录查看页，不是原始训练正在运行的终端，也不是单独足以证明模型质量的材料。完整命令在 [commands.txt](../../reports/evidence/commands.txt)，原始两段 stdout 和机器可读核验结果也随报告提交。不会用图片替代日志或隐藏失败输出。
 
 ## 重做核验和截图
 
-需要当前执行机器上的原始 checkpoint、`manifest.json`、metrics 和两段 stdout；新 clone 不包含 1.18 GB 权重，先按 [runbook](runbook.md) 训练。
+此脚本专门核验已发布的那一次实验，需要原始 checkpoint、`manifest.json`、metrics 和两段 stdout。新 clone 不包含 1.18 GB 权重；可以按 [runbook](runbook.md) 重做训练，但新实验的权重摘要不保证与旧实验相同，不能拿旧报告为新权重出具核验结论。
+
+先从仓库根目录进入第一阶段：`cd stages/01-basics`。
 
 ```bash
-.venv/bin/python -m scripts.week1_evidence \
-  > reports/week1/checkpoint-verification.log
+.venv/bin/python -m scripts.evidence \
+  > reports/checkpoint-verification.log
 .venv/bin/python -m http.server 8765 --bind 127.0.0.1 \
-  --directory reports/week1
+  --directory reports
 ```
 
-打开 `http://127.0.0.1:8765/evidence/index.html`，分别截取 `#results`、`#audit` 和 `#logs` 区域。本次浏览器 viewport 为 1280×1100，PNG、CSS 像素比例；截图只裁取对应元素，没有重绘或修改指标。截图完成后停止预览服务器。证据页本身保留在 [index.html](../../reports/week1/evidence/index.html)，不是图片生成模型绘制的终端。
+打开 `http://127.0.0.1:8765/evidence/index.html`，分别截取 `#results`、`#audit` 和 `#logs` 区域。本次浏览器 viewport 为 1280×1100，PNG、CSS 像素比例；截图只裁取对应元素，没有重绘或修改指标。截图完成后停止预览服务器。证据页本身保留在 [index.html](../../reports/evidence/index.html)，不是图片生成模型绘制的终端。
 
 ## 核验脚本逐行说明
 
-源码：[scripts/week1_evidence.py](../../scripts/week1_evidence.py)。这是专门针对已发布 Week 1 实验的后处理脚本，不参与模型训练。
+源码：[scripts/evidence.py](../../scripts/evidence.py)。这是专门针对已发布的第一阶段教学实验的后处理脚本，不参与模型训练。
+
+目录调整后核验入口名和报告路径已更新，下面行号对应新入口。历史命令、截图中的旧路径仍作为原始证据保留；按当前路径重新执行时先进入本阶段目录。
 
 | 源码行 | 含义 |
 | --- | --- |
@@ -37,7 +41,7 @@
 | 7 | Path 管理文件。 |
 | 9 | 读取张量状态并检查有限值。 |
 | 11 | 复用流式文件 SHA，不把大权重当作文本。 |
-| 14 | 开始保存历史实际执行命令；这里只是记录，不执行字符串。 |
+| 14 | 开始保存历史实际执行命令；这里只是记录，不执行字符串；其中旧路径不因搬目录而篡改。 |
 | 15 | 原始 TinyStories 小集下载命令与 stdout 路径。 |
 | 16 | 原始手写 BPE 训练命令。 |
 | 17 | 原始 train / val token 准备命令。 |
@@ -45,12 +49,12 @@
 | 19 | 原始恢复命令，仍使用相同配置与数据。 |
 | 20 | 原始 greedy 生成命令，记录实际失败输出。 |
 | 22 | 明确下面是训练后的核验，不是又做了一次训练。 |
-| 23 | 核验脚本实际调用与输出重定向。 |
+| 23 | 原目录布局下的历史核验调用，原样保留；现在使用上方 `scripts.evidence` 命令。 |
 | 24 | 结束多行命令文本。 |
 | 27 | 定义脚本入口。 |
 | 28 | 创建 CLI 解析器。 |
 | 29 | 默认读取原始实验目录。 |
-| 30 | 默认读取已发布报告目录。 |
+| 30 | 默认读取当前第一阶段下的 `reports/`。 |
 | 31 | 解析参数。 |
 | 32 | 核验在 CPU 单线程运行，避免不必要的资源占用。 |
 | 33 | 读取原实验 summary，作为要核对的声明。 |

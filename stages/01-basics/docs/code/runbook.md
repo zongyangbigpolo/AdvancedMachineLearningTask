@@ -19,7 +19,7 @@
 
 ## 从干净目录重放
 
-在仓库根目录：
+先在仓库根目录执行 `cd stages/01-basics`，以下所有命令都在第一阶段目录运行：
 
 ```bash
 uv sync --locked --python 3.12
@@ -54,6 +54,6 @@ API 返回页没有锁定数据集 revision。`source.json` 保存请求 URL、�
 
 ## 现场 Demo
 
-先展示 BPE round-trip，再展示 `reports/week1/` 中的真实训练曲线与预算；打开本地 `manifest.json`、`metrics.jsonl` 和 `latest.pt`，最后运行生成命令。应主动指出重复生成、短 context、验证窗口太少、数据集过小等限制。
+先展示 BPE round-trip，再展示 `reports/` 中的真实训练曲线与预算；打开本地 `manifest.json`、`metrics.jsonl` 和 `latest.pt`，最后运行生成命令。应主动指出重复生成、短 context、验证窗口太少、数据集过小等限制。
 
 同一 Mac 上可加载本地权重；全新 clone 只包含代码与轻量实验记录，需要按上述命令重新训练。checkpoint 包含 Adam 状态，远大于 GitHub 普通单文件限制，不把它硬塞进 main。

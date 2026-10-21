@@ -27,7 +27,7 @@ COMMANDS = """# Actual commands used for the original teaching experiment (repos
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run", type=Path, default=Path("runs/week1-100m-mac"))
-    parser.add_argument("--report", type=Path, default=Path("reports/week1"))
+    parser.add_argument("--report", type=Path, default=Path("reports"))
     args = parser.parse_args()
     torch.set_num_threads(1)
     summary = json.loads((args.report / "summary.json").read_text())
@@ -76,7 +76,7 @@ def main() -> None:
     selected = "\n".join(json.dumps(row, indent=2) for row in rows if row["step"] in (0, 5, 6, 100))
     generation = (args.report / "generation.txt").read_text()
     document = f"""<!doctype html>
-<html lang="en"><meta charset="utf-8"><title>Week 1: actual 98M training evidence</title>
+<html lang="en"><meta charset="utf-8"><title>Stage 1: actual 98M training evidence</title>
 <style>
 body{{font:16px/1.5 system-ui,sans-serif;margin:0;background:#edf1f5;color:#172033}}
 main{{max-width:1120px;margin:24px auto}} section{{background:white;padding:28px;margin:20px 0;border-radius:12px}}
@@ -93,7 +93,7 @@ Stopped at update 5, then resumed to update 100.</p>
 <pre>{html.escape(generation)}</pre></section>
 <section id="audit"><h2>Actual local checkpoint verification</h2>
 <p>Executed after training; CPU inspection of the checkpoint produced by MPS training. <a href="audit.json">Raw audit JSON</a></p>
-<pre>.venv/bin/python -m scripts.week1_evidence &gt; reports/week1/checkpoint-verification.log</pre>
+<pre>.venv/bin/python -m scripts.evidence &gt; reports/checkpoint-verification.log</pre>
 <pre>{html.escape(json.dumps(audit, indent=2))}</pre></section>
 <section id="commands"><h2>Exact commands</h2><p>Original execution used repository-root paths and redirected stdout as shown.
 Existing nonempty run/data directories cannot be overwritten. <a href="commands.txt">Plain text commands</a></p>
