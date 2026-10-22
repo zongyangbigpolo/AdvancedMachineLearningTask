@@ -1,0 +1,579 @@
+{
+  "command": "experiment.py --steps 100",
+  "python": "3.12.12",
+  "torch": "2.14.1",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "data": {
+    "source": "https://simple.wikipedia.org/wiki/Special:Export?pages=Cat%0ADog%0ATree%0AWater%0ASun%0AMoon%0AEarth%0ARiver%0AMountain%0ABird%0AFish%0ABook%0ASchool%0AMusic%0AComputer%0AElectricity&curonly=1",
+    "raw_sha256": "1c7378a16a1dd3f7bd9f13540a2c674eab4497012e412ef90772f7c0930479dd",
+    "raw_bytes": 719527,
+    "format": "MediaWiki XML export, latest revision of 16 named articles; not a full Wikipedia dump",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "attribution": "Simple English Wikipedia contributors; per-article revision links below",
+    "changes": "Removed templates/references/HTML/links, normalized whitespace, filtered and split by article",
+    "articles": [
+      {
+        "title": "Cat",
+        "revision": "11013735",
+        "url": "https://simple.wikipedia.org/w/index.php?oldid=11013735"
+      },
+      {
+        "title": "Dog",
+        "revision": "11022361",
+        "url": "https://simple.wikipedia.org/w/index.php?oldid=11022361"
+      },
+      {
+        "title": "Tree",
+        "revision": "10913253",
+        "url": "https://simple.wikipedia.org/w/index.php?oldid=10913253"
+      },
+      {
+        "title": "Water",
+        "revision": "10995353",
+        "url": "https://simple.wikipedia.org/w/index.php?oldid=10995353"
+      },
+      {
+        "title": "Sun",
+        "revision": "11003282",
+        "url": "https://simple.wikipedia.org/w/index.php?oldid=11003282"
+      },
+      {
+        "title": "Moon",
+        "revision": "10950172",
+        "url": "https://simple.wikipedia.org/w/index.php?oldid=10950172"
+      },
+      {
+        "title": "Earth",
+        "revision": "11036609",
+        "url": "https://simple.wikipedia.org/w/index.php?oldid=11036609"
+      },
+      {
+        "title": "River",
+        "revision": "10645133",
+        "url": "https://simple.wikipedia.org/w/index.php?oldid=10645133"
+      },
+      {
+        "title": "Mountain",
+        "revision": "10900598",
+        "url": "https://simple.wikipedia.org/w/index.php?oldid=10900598"
+      },
+      {
+        "title": "Bird",
+        "revision": "11013199",
+        "url": "https://simple.wikipedia.org/w/index.php?oldid=11013199"
+      },
+      {
+        "title": "Fish",
+        "revision": "10905618",
+        "url": "https://simple.wikipedia.org/w/index.php?oldid=10905618"
+      },
+      {
+        "title": "Book",
+        "revision": "11021983",
+        "url": "https://simple.wikipedia.org/w/index.php?oldid=11021983"
+      },
+      {
+        "title": "School",
+        "revision": "10975377",
+        "url": "https://simple.wikipedia.org/w/index.php?oldid=10975377"
+      },
+      {
+        "title": "Music",
+        "revision": "10887830",
+        "url": "https://simple.wikipedia.org/w/index.php?oldid=10887830"
+      },
+      {
+        "title": "Computer",
+        "revision": "10973955",
+        "url": "https://simple.wikipedia.org/w/index.php?oldid=10973955"
+      },
+      {
+        "title": "Electricity",
+        "revision": "11031534",
+        "url": "https://simple.wikipedia.org/w/index.php?oldid=11031534"
+      }
+    ],
+    "input_documents": 16,
+    "kept_documents": 14,
+    "removed": {
+      "unbalanced_template": 2
+    },
+    "train_documents": 10,
+    "validation_documents": 4,
+    "near_duplicate_threshold": 0.8,
+    "shingle_words": 5,
+    "cross_split_exact_duplicates": 0,
+    "train_sha256": "25ccd3b3931b3df21f36592b22b348534020c739d162c53a74bc01867ef48cc7",
+    "validation_sha256": "e04c08a112ebde983e3d1905b11e844bafcaaf5cb4b01d736de645d3167d2b46",
+    "train_encoding": {
+      "source": "/Users/polo2/srccode/copilot-worktrees/AdvancedMachineLearningTask/polo-li-citrix-expert-dollop/stages/03-data-scaling/data/wiki-export/train.txt",
+      "source_sha256": "25ccd3b3931b3df21f36592b22b348534020c739d162c53a74bc01867ef48cc7",
+      "token_sha256": "63febfcef6a8b4d98e37885ed48e8acc2e800582e1ae826389bc91e4e4ab6666",
+      "documents": 10,
+      "tokens": 88393
+    },
+    "val_encoding": {
+      "source": "/Users/polo2/srccode/copilot-worktrees/AdvancedMachineLearningTask/polo-li-citrix-expert-dollop/stages/03-data-scaling/data/wiki-export/val.txt",
+      "source_sha256": "e04c08a112ebde983e3d1905b11e844bafcaaf5cb4b01d736de645d3167d2b46",
+      "token_sha256": "16ececd9454145eadc3d55e3e9b9f9df8a9a7892619a255719f4c19815a2c9b6",
+      "documents": 4,
+      "tokens": 35003
+    }
+  },
+  "runs": [
+    {
+      "width": 32,
+      "seed": 42,
+      "parameters": 43168,
+      "tokens_seen": 51200,
+      "initial_ce": 6.247714161872864,
+      "validation_ce": 4.415466248989105,
+      "seconds": 1.7275982501450926,
+      "checkpoint_sha256": "3883466e267c49fb7eccf48df2fbd288986dc5cb1a9b3d3c5d3b43733596e918",
+      "curve": [
+        {
+          "step": 25,
+          "validation_ce": 5.5614253282547
+        },
+        {
+          "step": 50,
+          "validation_ce": 5.023802876472473
+        },
+        {
+          "step": 75,
+          "validation_ce": 4.6573187708854675
+        },
+        {
+          "step": 100,
+          "validation_ce": 4.415466248989105
+        }
+      ]
+    },
+    {
+      "width": 32,
+      "seed": 43,
+      "parameters": 43168,
+      "tokens_seen": 51200,
+      "initial_ce": 6.250178217887878,
+      "validation_ce": 4.415793478488922,
+      "seconds": 1.4107627090997994,
+      "checkpoint_sha256": "ac0866c211606d143b427a212efbcaf1877d7f8c5d6658cf908de4947858859b",
+      "curve": [
+        {
+          "step": 25,
+          "validation_ce": 5.548457860946655
+        },
+        {
+          "step": 50,
+          "validation_ce": 5.017289221286774
+        },
+        {
+          "step": 75,
+          "validation_ce": 4.650988221168518
+        },
+        {
+          "step": 100,
+          "validation_ce": 4.415793478488922
+        }
+      ]
+    },
+    {
+      "width": 32,
+      "seed": 44,
+      "parameters": 43168,
+      "tokens_seen": 51200,
+      "initial_ce": 6.2197471261024475,
+      "validation_ce": 4.397383868694305,
+      "seconds": 1.0247986249160022,
+      "checkpoint_sha256": "b39f02c58dda11eb64bfba7b4e33917979c1723d579ea5f654ff0bc9f792c1b8",
+      "curve": [
+        {
+          "step": 25,
+          "validation_ce": 5.523742377758026
+        },
+        {
+          "step": 50,
+          "validation_ce": 4.983323872089386
+        },
+        {
+          "step": 75,
+          "validation_ce": 4.6178300976753235
+        },
+        {
+          "step": 100,
+          "validation_ce": 4.397383868694305
+        }
+      ]
+    },
+    {
+      "width": 48,
+      "seed": 42,
+      "parameters": 84720,
+      "tokens_seen": 51200,
+      "initial_ce": 6.213525831699371,
+      "validation_ce": 4.139444351196289,
+      "seconds": 2.4211992090567946,
+      "checkpoint_sha256": "ff9c67d2c5df68eedcede467cf8c0443ddcbdc6f84ec44d2d17bc996dadf3553",
+      "curve": [
+        {
+          "step": 25,
+          "validation_ce": 5.1971558928489685
+        },
+        {
+          "step": 50,
+          "validation_ce": 4.608481228351593
+        },
+        {
+          "step": 75,
+          "validation_ce": 4.3294525146484375
+        },
+        {
+          "step": 100,
+          "validation_ce": 4.139444351196289
+        }
+      ]
+    },
+    {
+      "width": 48,
+      "seed": 43,
+      "parameters": 84720,
+      "tokens_seen": 51200,
+      "initial_ce": 6.266266822814941,
+      "validation_ce": 4.126249194145203,
+      "seconds": 2.074421792058274,
+      "checkpoint_sha256": "639ac5b350594c0871835ecb00fc139cc89f51a590c725bcb19a61184acc11b0",
+      "curve": [
+        {
+          "step": 25,
+          "validation_ce": 5.2427913546562195
+        },
+        {
+          "step": 50,
+          "validation_ce": 4.626460790634155
+        },
+        {
+          "step": 75,
+          "validation_ce": 4.258087933063507
+        },
+        {
+          "step": 100,
+          "validation_ce": 4.126249194145203
+        }
+      ]
+    },
+    {
+      "width": 48,
+      "seed": 44,
+      "parameters": 84720,
+      "tokens_seen": 51200,
+      "initial_ce": 6.229303002357483,
+      "validation_ce": 4.2673691511154175,
+      "seconds": 1.7144932500086725,
+      "checkpoint_sha256": "fd4de4be5684892e62d2e73afdf62a5e7660c4bac1e671084eccc2942827a2dd",
+      "curve": [
+        {
+          "step": 25,
+          "validation_ce": 5.188727080821991
+        },
+        {
+          "step": 50,
+          "validation_ce": 4.609512150287628
+        },
+        {
+          "step": 75,
+          "validation_ce": 4.366872489452362
+        },
+        {
+          "step": 100,
+          "validation_ce": 4.2673691511154175
+        }
+      ]
+    },
+    {
+      "width": 64,
+      "seed": 42,
+      "parameters": 139584,
+      "tokens_seen": 51200,
+      "initial_ce": 6.251396059989929,
+      "validation_ce": 4.095559597015381,
+      "seconds": 1.8160355410072953,
+      "checkpoint_sha256": "2ae54d20ad186656d817ff9cabc7ddb98bc320186515ad2f86c2ef35110d40ec",
+      "curve": [
+        {
+          "step": 25,
+          "validation_ce": 4.952628016471863
+        },
+        {
+          "step": 50,
+          "validation_ce": 4.40573114156723
+        },
+        {
+          "step": 75,
+          "validation_ce": 4.320785284042358
+        },
+        {
+          "step": 100,
+          "validation_ce": 4.095559597015381
+        }
+      ]
+    },
+    {
+      "width": 64,
+      "seed": 43,
+      "parameters": 139584,
+      "tokens_seen": 51200,
+      "initial_ce": 6.269757986068726,
+      "validation_ce": 4.051249206066132,
+      "seconds": 1.4060387080535293,
+      "checkpoint_sha256": "bc5d39be598c1848930a8b591f8b0738529509ba38e17e28044293bdd808dca5",
+      "curve": [
+        {
+          "step": 25,
+          "validation_ce": 5.002381980419159
+        },
+        {
+          "step": 50,
+          "validation_ce": 4.413666069507599
+        },
+        {
+          "step": 75,
+          "validation_ce": 4.143368244171143
+        },
+        {
+          "step": 100,
+          "validation_ce": 4.051249206066132
+        }
+      ]
+    },
+    {
+      "width": 64,
+      "seed": 44,
+      "parameters": 139584,
+      "tokens_seen": 51200,
+      "initial_ce": 6.233971118927002,
+      "validation_ce": 4.083504408597946,
+      "seconds": 1.4296532501466572,
+      "checkpoint_sha256": "207a958d4d8d200eb19b11462e3244d0f3c0adbff54929088561b3b3edd251cb",
+      "curve": [
+        {
+          "step": 25,
+          "validation_ce": 4.968973875045776
+        },
+        {
+          "step": 50,
+          "validation_ce": 4.410609841346741
+        },
+        {
+          "step": 75,
+          "validation_ce": 4.2698410749435425
+        },
+        {
+          "step": 100,
+          "validation_ce": 4.083504408597946
+        }
+      ]
+    },
+    {
+      "width": 80,
+      "seed": 42,
+      "parameters": 207760,
+      "tokens_seen": 51200,
+      "initial_ce": 6.272738933563232,
+      "validation_ce": 3.987516850233078,
+      "seconds": 2.232541542034596,
+      "checkpoint_sha256": "602295b1ccf8117a75002aab5bd857bb443c3525340aca08576070f82cd501f7",
+      "curve": [
+        {
+          "step": 25,
+          "validation_ce": 4.696541607379913
+        },
+        {
+          "step": 50,
+          "validation_ce": 4.347728848457336
+        },
+        {
+          "step": 75,
+          "validation_ce": 4.14420610666275
+        },
+        {
+          "step": 100,
+          "validation_ce": 3.987516850233078
+        }
+      ]
+    },
+    {
+      "width": 80,
+      "seed": 43,
+      "parameters": 207760,
+      "tokens_seen": 51200,
+      "initial_ce": 6.228930354118347,
+      "validation_ce": 3.990418404340744,
+      "seconds": 1.709659291896969,
+      "checkpoint_sha256": "ec2ae7299e530f27434d0b647b2c8079945a25accb4fe2640f9064203a1f992f",
+      "curve": [
+        {
+          "step": 25,
+          "validation_ce": 4.661874234676361
+        },
+        {
+          "step": 50,
+          "validation_ce": 4.292728126049042
+        },
+        {
+          "step": 75,
+          "validation_ce": 4.094558477401733
+        },
+        {
+          "step": 100,
+          "validation_ce": 3.990418404340744
+        }
+      ]
+    },
+    {
+      "width": 80,
+      "seed": 44,
+      "parameters": 207760,
+      "tokens_seen": 51200,
+      "initial_ce": 6.242461383342743,
+      "validation_ce": 3.910989999771118,
+      "seconds": 1.2507832499686629,
+      "checkpoint_sha256": "94703ea62e53f8294ce0575469640ae5bd6d747b846f0289f4493a2191f5eb58",
+      "curve": [
+        {
+          "step": 25,
+          "validation_ce": 4.674321472644806
+        },
+        {
+          "step": 50,
+          "validation_ce": 4.190550804138184
+        },
+        {
+          "step": 75,
+          "validation_ce": 4.035138100385666
+        },
+        {
+          "step": 100,
+          "validation_ce": 3.910989999771118
+        }
+      ]
+    },
+    {
+      "width": 96,
+      "seed": 42,
+      "parameters": 289248,
+      "tokens_seen": 51200,
+      "initial_ce": 6.26254278421402,
+      "validation_ce": 3.8887676298618317,
+      "seconds": 1.1752226671669632,
+      "checkpoint_sha256": "52334b27dd291fd8089e0bad83684826fcef1139b89b795ad9a126a5265a3549",
+      "curve": [
+        {
+          "step": 25,
+          "validation_ce": 4.5510934591293335
+        },
+        {
+          "step": 50,
+          "validation_ce": 4.184664189815521
+        },
+        {
+          "step": 75,
+          "validation_ce": 4.035602897405624
+        },
+        {
+          "step": 100,
+          "validation_ce": 3.8887676298618317
+        }
+      ]
+    },
+    {
+      "width": 96,
+      "seed": 43,
+      "parameters": 289248,
+      "tokens_seen": 51200,
+      "initial_ce": 6.241279304027557,
+      "validation_ce": 3.8622887432575226,
+      "seconds": 1.5206581659149379,
+      "checkpoint_sha256": "8f8a389924512a1088660713ce327e85d3c5b5e8d8d4d28442a5c2996bce8eb3",
+      "curve": [
+        {
+          "step": 25,
+          "validation_ce": 4.496266305446625
+        },
+        {
+          "step": 50,
+          "validation_ce": 4.119507551193237
+        },
+        {
+          "step": 75,
+          "validation_ce": 3.956123501062393
+        },
+        {
+          "step": 100,
+          "validation_ce": 3.8622887432575226
+        }
+      ]
+    },
+    {
+      "width": 96,
+      "seed": 44,
+      "parameters": 289248,
+      "tokens_seen": 51200,
+      "initial_ce": 6.304217875003815,
+      "validation_ce": 3.860805183649063,
+      "seconds": 2.0644555420149118,
+      "checkpoint_sha256": "53fc89b6ae0dcf276b08bc656ee02fc6b0e0e45b25e4085264d43052ae1bcffc",
+      "curve": [
+        {
+          "step": 25,
+          "validation_ce": 4.598820626735687
+        },
+        {
+          "step": 50,
+          "validation_ce": 4.145142674446106
+        },
+        {
+          "step": 75,
+          "validation_ce": 3.9830410480499268
+        },
+        {
+          "step": 100,
+          "validation_ce": 3.860805183649063
+        }
+      ]
+    }
+  ],
+  "extrapolation": {
+    "formula": "L(N) = offset + amplitude * (N/n0)^(-alpha)",
+    "fit": {
+      "offset": 3.328899071216583,
+      "amplitude": 1.0770066753915295,
+      "alpha": 0.33,
+      "n0": 43168,
+      "squared_error": 0.0005219565724140966
+    },
+    "fit_points": [
+      [
+        43168,
+        4.409547865390778
+      ],
+      [
+        84720,
+        4.177687565485637
+      ],
+      [
+        139584,
+        4.076771070559819
+      ],
+      [
+        207760,
+        3.9629750847816467
+      ]
+    ],
+    "holdout_parameters": 289248,
+    "predicted_holdout_ce": 3.903812709166573,
+    "actual_holdout_ce": 3.870620518922806,
+    "relative_error": 0.008575418355143858,
+    "protocol": "Same tokenizer, token budget, validation windows; three seeds; largest size excluded from fit"
+  }
+}

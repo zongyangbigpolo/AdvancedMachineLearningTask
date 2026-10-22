@@ -1,0 +1,118 @@
+{
+  "source": "https://simple.wikipedia.org/wiki/Special:Export?pages=Cat%0ADog%0ATree%0AWater%0ASun%0AMoon%0AEarth%0ARiver%0AMountain%0ABird%0AFish%0ABook%0ASchool%0AMusic%0AComputer%0AElectricity&curonly=1",
+  "raw_sha256": "1c7378a16a1dd3f7bd9f13540a2c674eab4497012e412ef90772f7c0930479dd",
+  "raw_bytes": 719527,
+  "format": "MediaWiki XML export, latest revision of 16 named articles; not a full Wikipedia dump",
+  "license": "CC BY-SA 4.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "attribution": "Simple English Wikipedia contributors; per-article revision links below",
+  "changes": "Removed templates/references/HTML/links, normalized whitespace, filtered and split by article",
+  "articles": [
+    {
+      "title": "Cat",
+      "revision": "11013735",
+      "url": "https://simple.wikipedia.org/w/index.php?oldid=11013735"
+    },
+    {
+      "title": "Dog",
+      "revision": "11022361",
+      "url": "https://simple.wikipedia.org/w/index.php?oldid=11022361"
+    },
+    {
+      "title": "Tree",
+      "revision": "10913253",
+      "url": "https://simple.wikipedia.org/w/index.php?oldid=10913253"
+    },
+    {
+      "title": "Water",
+      "revision": "10995353",
+      "url": "https://simple.wikipedia.org/w/index.php?oldid=10995353"
+    },
+    {
+      "title": "Sun",
+      "revision": "11003282",
+      "url": "https://simple.wikipedia.org/w/index.php?oldid=11003282"
+    },
+    {
+      "title": "Moon",
+      "revision": "10950172",
+      "url": "https://simple.wikipedia.org/w/index.php?oldid=10950172"
+    },
+    {
+      "title": "Earth",
+      "revision": "11036609",
+      "url": "https://simple.wikipedia.org/w/index.php?oldid=11036609"
+    },
+    {
+      "title": "River",
+      "revision": "10645133",
+      "url": "https://simple.wikipedia.org/w/index.php?oldid=10645133"
+    },
+    {
+      "title": "Mountain",
+      "revision": "10900598",
+      "url": "https://simple.wikipedia.org/w/index.php?oldid=10900598"
+    },
+    {
+      "title": "Bird",
+      "revision": "11013199",
+      "url": "https://simple.wikipedia.org/w/index.php?oldid=11013199"
+    },
+    {
+      "title": "Fish",
+      "revision": "10905618",
+      "url": "https://simple.wikipedia.org/w/index.php?oldid=10905618"
+    },
+    {
+      "title": "Book",
+      "revision": "11021983",
+      "url": "https://simple.wikipedia.org/w/index.php?oldid=11021983"
+    },
+    {
+      "title": "School",
+      "revision": "10975377",
+      "url": "https://simple.wikipedia.org/w/index.php?oldid=10975377"
+    },
+    {
+      "title": "Music",
+      "revision": "10887830",
+      "url": "https://simple.wikipedia.org/w/index.php?oldid=10887830"
+    },
+    {
+      "title": "Computer",
+      "revision": "10973955",
+      "url": "https://simple.wikipedia.org/w/index.php?oldid=10973955"
+    },
+    {
+      "title": "Electricity",
+      "revision": "11031534",
+      "url": "https://simple.wikipedia.org/w/index.php?oldid=11031534"
+    }
+  ],
+  "input_documents": 16,
+  "kept_documents": 14,
+  "removed": {
+    "unbalanced_template": 2
+  },
+  "train_documents": 10,
+  "validation_documents": 4,
+  "near_duplicate_threshold": 0.8,
+  "shingle_words": 5,
+  "cross_split_exact_duplicates": 0,
+  "train_sha256": "25ccd3b3931b3df21f36592b22b348534020c739d162c53a74bc01867ef48cc7",
+  "validation_sha256": "e04c08a112ebde983e3d1905b11e844bafcaaf5cb4b01d736de645d3167d2b46",
+  "train_encoding": {
+    "source": "/Users/polo2/srccode/copilot-worktrees/AdvancedMachineLearningTask/polo-li-citrix-expert-dollop/stages/03-data-scaling/data/wiki-export/train.txt",
+    "source_sha256": "25ccd3b3931b3df21f36592b22b348534020c739d162c53a74bc01867ef48cc7",
+    "token_sha256": "63febfcef6a8b4d98e37885ed48e8acc2e800582e1ae826389bc91e4e4ab6666",
+    "documents": 10,
+    "tokens": 88393
+  },
+  "val_encoding": {
+    "source": "/Users/polo2/srccode/copilot-worktrees/AdvancedMachineLearningTask/polo-li-citrix-expert-dollop/stages/03-data-scaling/data/wiki-export/val.txt",
+    "source_sha256": "e04c08a112ebde983e3d1905b11e844bafcaaf5cb4b01d736de645d3167d2b46",
+    "token_sha256": "16ececd9454145eadc3d55e3e9b9f9df8a9a7892619a255719f4c19815a2c9b6",
+    "documents": 4,
+    "tokens": 35003
+  }
+}
