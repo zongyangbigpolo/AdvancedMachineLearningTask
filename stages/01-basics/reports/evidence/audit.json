@@ -1,5 +1,5 @@
 {
-  "verification": "PASS: actual local checkpoint read after training",
+  "verification": "Checkpoint inspection passed",
   "checkpoint": "runs/week1-100m-mac/latest.pt",
   "sha256": "17ff9f6a715f7b50da993747bf8e3a354076fb25ee3b47ff741f1fe1eee0da58",
   "bytes": 1179993355,
@@ -14,5 +14,5 @@
   "original_stdout_matches_metrics": true,
   "recorded_device": "mps",
   "verification_device": "cpu",
-  "disclosure": "Post-training audit, not an image captured during the original training"
+  "report_type": "Checkpoint and optimizer inspection"
 }

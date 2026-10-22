@@ -1,0 +1,12 @@
+Official NeurIPS 2026 style, extracted without modification:
+https://media.neurips.cc/Conferences/NeurIPS2026/Formatting_Instructions_For_NeurIPS_2026.zip
+
+Linked by the official 2026 call for papers:
+https://neurips.cc/Conferences/2026/CallForPapers
+
+neurips_2026.sty retains its original author credits.
+This report uses the preprint option for a course/laboratory write-up.
+
+Compilation used Tectonic 0.17.0, installed only inside this stage's ignored
+runs/tools directory. Its official Apple-arm64 distribution SHA-256 is:
+a3f1cac7c5678f01661a92212f58480ae3b0634115d880dbc59e2953ded45667

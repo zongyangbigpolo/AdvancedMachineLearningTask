@@ -1,18 +1,25 @@
-# Final report and live demo
+# Final deliverables
 
-This is an appendix to the [Stage 5 README](README.md), not a separate stage or weekly task.
+This appendix belongs to the [stage-five experiment record](README.md).
 
-The eventual deliverable is an **English report in the required NeurIPS format**, plus a reproducible live demo. The [Stage 1 teaching report](../01-basics/reports/README.md) records an actual bounded 98M run, not full pretraining. Confirm the required year/template before adding the official style files.
-
-The report should answer four concrete questions:
-
-| Section | Required evidence |
+| Deliverable | Saved artifact |
 | --- | --- |
-| Problem | A precise task, data split, evaluation protocol and measurable acceptance criteria |
-| Motivation | Why the question matters and what the baseline cannot establish |
-| Method | Architecture, tokenizer, data provenance, objectives, compute budget and controlled comparisons |
-| Results | Actual measurements, learning curves, uncertainty, ablations, failure cases and limitations |
+| English report, problem / motivation / method / results | [paper.pdf](report/paper.pdf), [paper.tex](report/paper.tex) |
+| Official NeurIPS 2026 style and provenance | [neurips_2026.sty](report/neurips_2026.sty), [template source](report/TEMPLATE_SOURCE.txt) |
+| Reloaded neural-policy demo | [demo.py](demo.py), [execution log](reports/demo.jsonl) |
+| Replayable environment interactions | [traces.json](reports/traces.json) |
+| Training data and saved agent weights | [agent-artifacts.zip](artifacts/agent-artifacts.zip) |
 
-Keep checkpoint identifiers, dataset fingerprints, commands, seeds and environment information with each result. Disclose AI assistance and external references according to the applicable course policy. Use the official NeurIPS template when preparing the final paper; this directory is not itself a formatted submission.
+The compiled five-page report uses the official preprint style. It covers
+including weak story generation, the constrained numeric response policy,
+the finite-state agent environment, failed baselines, and absent
+Triton/multi-GPU measurements.
 
-The first-stage demo should show tokenizer round-trip, causal behavior, a saved training curve, checkpoint resume and generation. A toy-model demo must be labeled as such. Later demos should separately establish kernel correctness/speed, distributed gains, scaling predictions, alignment comparisons and externally verified agent success.
+The demo reloads `agent.pt`, executes eight sequential goals, prints each
+tool transition, and exits with an error if the external verifier rejects
+the final state. The saved fresh run completed 36 tool actions and 72
+model calls with self-review enabled.
+
+GitHub Copilot assisted implementation, execution, and drafting.
+Method sources and experimental scope are documented in the report and
+the [reference log](../01-basics/docs/references.md).

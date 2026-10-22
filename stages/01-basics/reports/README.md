@@ -1,100 +1,96 @@
-# Stage 1: A From-Scratch 98M Language Model on Apple Silicon
+# Experiment 1: 98M Transformer, 100 updates
 
-**Status:** the declared, bounded teaching experiment is complete. This is not a fully pretrained model, a capability benchmark, or the final NeurIPS submission.
+[Stage report](../README.md) · [1,500-update experiment](local/results.json)
 
-**Reading entry:** [Stage 1 README](../README.md) explains the task, terminology, execution order, design choices and results in Chinese. This directory is its evidence appendix, not a separate learning path.
+## Task and motivation
 
-**Directory migration:** all code and artifacts now belong to `stages/01-basics/`; run current commands from that directory. Original screenshots, logs, command transcripts and training metadata remain unchanged. Their `week1` labels and former paths identify a historical experiment, not a required weekly schedule.
+Train the 98M model on Apple M4, save after update 5, restore the model
+and optimizer states, and continue to update 100. This experiment checks
+the training, checkpoint, evaluation, and generation interfaces before
+increasing the budget.
 
-## Screenshot evidence and executed commands
+## Method
 
-These are actual browser captures of the saved training records and a fresh inspection of the real local checkpoint. They were captured **after training**, not during the original run. Screenshots are a readable supplement, not independent proof or a replacement for reproducible logs and checkpoint hashes.
+The model has 98,323,200 parameters: 12 layers, width 768, 12 heads,
+feed-forward width 2,304, vocabulary capacity 8,192, and tied embeddings.
+The architecture uses Root Mean Square Normalization (RMSNorm), Rotary
+Position Embedding (RoPE), causal attention, and Swish Gated Linear Units
+(SwiGLU). PyTorch supplies tensors, automatic differentiation, AdamW,
+and the Metal Performance Shaders (MPS) backend.
 
-![Actual saved training results and unedited generation failure](evidence/training-results.png)
+Hardware: Apple M4, 10 GPU cores, 16 GiB unified memory. Software:
+Python 3.12.12, PyTorch 2.14.1, 32-bit floating point. Configuration and
+source fingerprints are recorded in [manifest.json](manifest.json).
 
-![Actual checkpoint inspection, hash, parameter count and Adam steps](evidence/checkpoint-verification.png)
+The TinyStories subset contains 512 training and 128 validation stories.
+The authors are Ronen Eldan and Yuanzhi Li; the dataset uses
+[CDLA-Sharing-1.0](https://cdla.dev/sharing-1-0/).
+[data-source.json](data-source.json) records source URLs, modification
+notices, and file hashes. The BPE (Byte Pair Encoding) tokenizer is fit
+only on training text and contains 5,696 symbols.
 
-![Original logs showing stop at update 5, resume at update 6 and completion at update 100](evidence/training-log.png)
+Training uses batch one, context 128, peak learning rate 0.0003,
+10 warmup updates, cosine decay to 10% of peak, weight decay 0.1,
+and gradient clipping at norm one. Validation uses four fixed windows,
+512 predicted positions, with possible overlap.
 
-The exact original command transcript, including dataset preparation, stdout redirection and generation, is in [evidence/commands.txt](evidence/commands.txt). It was executed from the old repository-root layout. The same training commands now run after `cd stages/01-basics`:
+## Commands
+
+Run from `stages/01-basics/`. The [command log](evidence/commands.txt)
+also includes download, tokenization, encoding, and generation.
 
 ```bash
 .venv/bin/python -m aml.train \
   --config configs/100m-mac.json --data data/week1-tokens \
   --output runs/week1-100m-mac --device mps --stop-after 5 \
   > runs/week1-training-first.log
-
 .venv/bin/python -m aml.train \
   --config configs/100m-mac.json --data data/week1-tokens \
   --output runs/week1-100m-mac --device mps --resume \
   > runs/week1-training-resume.log
+.venv/bin/python -m scripts.evidence > reports/checkpoint-verification.log
 ```
 
-Original stdout is published without editing in [the first segment](evidence/week1-training-first.log) and [the resumed segment](evidence/week1-training-resume.log). Their parsed records were checked against `metrics.jsonl` for every step from 0 through 100.
-
-The current post-training verification command is, from `stages/01-basics/`:
-
-```bash
-.venv/bin/python -m scripts.evidence \
-  > reports/checkpoint-verification.log
-```
-
-This reads the actual 1.18 GB checkpoint, counts stored weight parameters, checks all weights are finite, verifies Adam's 100-update states, compares the published SHA-256 and training-source fingerprints, and verifies the original logs. Its output is preserved as [checkpoint-verification.log](checkpoint-verification.log) and [audit.json](evidence/audit.json). The helper's explanation is in [the evidence guide](../docs/code/evidence.md).
-
-## Problem and motivation
-
-Can a single-device pipeline, with a hand-written byte BPE tokenizer and decoder-only Transformer, actually optimize an approximately 0.1B-parameter model, resume from a checkpoint, and produce autoregressive output on a 16 GiB Apple Silicon machine?
-
-The purpose is to establish a transparent correctness baseline before introducing fused kernels, distributed systems, alignment, or agent training. A toy model passing unit tests does not by itself establish that the billion-byte checkpoint and optimizer state paths work at the intended parameter scale.
-
-## Method
-
-We trained a randomly initialized **98,323,200-parameter** decoder with 12 blocks, width 768, 12 attention heads, SwiGLU width 2304, RoPE, RMSNorm and tied input/output embeddings. Attention, projections, normalization, RoPE, feed-forward layers and cross-entropy are implemented in this repository. PyTorch provides tensors, automatic differentiation, AdamW and the MPS runtime; neither a pretrained model nor a prebuilt Transformer/attention operator is used in production code.
-
-The hardware was an **Apple M4, 10 GPU cores, 16 GiB unified memory**, using Python 3.12.12 and PyTorch 2.14.1 in FP32. See [manifest.json](manifest.json) for exact configuration, environment and source fingerprints.
-
-We selected the first 512 stories from TinyStories' upstream training split and the first 128 stories from its validation split. Internal whitespace was normalized so each full story occupies one line. Exact duplicate documents and exact cross-split overlap were rejected. We did not perform near-duplicate or template-leakage auditing.
-
-The dataset authors are **Ronen Eldan and Yuanzhi Li**. Its [dataset card](https://huggingface.co/datasets/roneneldan/TinyStories) declares [CDLA-Sharing-1.0](https://cdla.dev/sharing-1-0/). [data-source.json](data-source.json) preserves attribution, the modification notice, page URLs and content hashes. Raw text is not redistributed in this repository. Upstream API responses were not revision-pinned.
-
-The byte BPE tokenizer was trained on training text only and learned 5,696 tokens; the model retained 8,192 embedding/output slots. Prepared training and validation streams contained 172,991 and 39,574 tokens respectively, including document EOS markers.
-
-The declared budget was **100 optimizer updates × batch 1 × context 128 = 12,800 sampled training tokens**. We used AdamW with peak learning rate 0.0003, ten warmup updates, cosine decay to 10% of peak, weight decay 0.1 and gradient clipping at norm 1. Training stopped after update 5 and then resumed from the saved model, optimizer and RNG state to update 100.
-
-Validation used the same four seeded windows at each evaluation: 512 predicted positions, with possible overlap. It is a small sampled estimate, not full-corpus perplexity. Attention permits crossing EOS boundaries in packed windows.
+The checkpoint inspection counts parameters, checks finite weights and
+Adam steps, compares file hashes, and checks log continuity.
+Output: [checkpoint-verification.log](checkpoint-verification.log),
+[audit.json](evidence/audit.json).
 
 ## Results
 
-| Measurement | Observed value |
+| Measurement | Value |
 | --- | ---: |
-| Parameters actually trained | 98,323,200 |
-| Optimizer updates completed | 100 |
+| Parameters | 98,323,200 |
+| Updates | 100 |
 | Sampled training tokens | 12,800 |
-| Initial validation CE, nats/token | 8.829942 |
+| Initial validation CE (Cross-Entropy), nats/token | 8.829942 |
 | Final validation CE, nats/token | 3.513791 |
-| First training-window CE | 8.958643 |
-| Last training-window CE | 2.936069 |
-| Checkpoint size, including optimizer | 1,179,993,355 bytes |
-| Sum of synchronized training-step times | 33.495 seconds |
+| First / last training-window CE | 8.958643 / 2.936069 |
+| Checkpoint, including optimizer | 1,179,993,355 bytes |
+| Sum of training-step times | 33.495 seconds |
 
-The timing figure **excludes downloading, tokenization, initialization, evaluation, checkpoint serialization and logging**. It is not end-to-end training time and should not be used as a hardware speedup claim. The first and last training losses are measured on different random windows; only validation reuses fixed windows.
+Step timing excludes data preparation, evaluation, logging, and
+checkpoint serialization. Training windows vary; validation windows
+remain fixed.
 
-![Actual training and validation losses](loss.svg)
+![Training and validation losses](loss.svg)
 
-The full numerical record is in [metrics.jsonl](metrics.jsonl), with computed totals and the local checkpoint hash in [summary.json](summary.json).
+The greedy completion repeats `the`; see [generation.txt](generation.txt).
+The model has learned frequent-token patterns at this budget, while
+story coherence remains poor. Further evaluation uses the longer run
+documented in the stage report.
 
-## Demo and failure analysis
+## Artifacts and screenshots
 
-The actual greedy completion for `Once upon a time` repeats the frequent word `the`; the full output is preserved in [generation.txt](generation.txt). This is a failure case, not an edited demonstration of coherent language generation.
+The [data bundle](../artifacts/training-data.zip) includes the subset,
+tokenizer, encoded streams, and run metadata. The full checkpoint is in
+[stage1-100-updates](https://github.com/zongyangbigpolo/AdvancedMachineLearningTask/releases/tag/stage1-100-updates).
 
-At only approximately 0.00013 training tokens per parameter, the model is severely undertrained. A drop in next-token loss can reflect learning frequency and whitespace patterns rather than narrative ability. The dataset subset is tiny and prefix-selected, the validation sample is small, only one seed was run, and no capability evaluation or comparison against a trained baseline was performed.
+Training records:
+[first segment](evidence/week1-training-first.log),
+[resumed segment](evidence/week1-training-resume.log),
+[metrics](metrics.jsonl), [summary](summary.json).
 
-Thus, the result establishes the **engineering training/resume/evaluation/generation loop at the intended parameter scale**, not sufficient pretraining, convergence, story-writing ability, or a compute-optimal training recipe. The larger `configs/100m.json` budget remains a separate, unexecuted experiment.
-
-## Reproduction and artifacts
-
-Commands and exact budget: [Stage 1 runbook](../docs/code/runbook.md). Source explanations: [optional code appendix](../docs/code/README.md).
-
-The checkpoint remains at `runs/week1-100m-mac/latest.pt` on the execution machine. It is deliberately not committed to Git: the file exceeds GitHub's normal single-file limit, and a fresh clone must rerun the bounded experiment to obtain weights. This repository publishes lightweight evidence, configuration and source code, not a hosted model-weight download.
-
-This is an AI-assisted independent learning implementation, not an assertion of compliance with any course's independent-work submission policy.
+![Training results and completion](evidence/training-results.png)
+![Checkpoint and optimizer state](evidence/checkpoint-verification.png)
+![Updates 0, 5, 6 and 100](evidence/training-log.png)

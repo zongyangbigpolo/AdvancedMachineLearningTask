@@ -5,8 +5,8 @@ Source: https://simple.wikipedia.org/
 License: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 Full license: https://creativecommons.org/licenses/by-sa/4.0/legalcode
 
-The raw XML is a Special:Export snapshot of 16 named articles, not the entire
-Wikipedia database. Per-article titles and exact revision URLs are in
+The raw XML is a Special:Export snapshot of 16 named articles.
+Per-article titles and exact revision URLs are in
 data/wiki-export/source.json and reports/data-card.json. Article revision
 pages link to the contributor histories and preserve attribution.
 
@@ -20,5 +20,4 @@ The original raw text and these modified text/token data remain under
 CC BY-SA 4.0. No additional restrictions are imposed on the data.
 SHA256.json lists every bundled file and its digest.
 
-Small .pt files are this project's independently trained experimental model
-checkpoints. They are not weights obtained from the reference project.
+Small .pt files are checkpoints from the stage-three scaling experiment.

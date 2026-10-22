@@ -24,7 +24,7 @@
 | CUDA — Compute Unified Device Architecture | NVIDIA GPU 的计算平台；本机没有该设备。 |
 | DDP — Distributed Data Parallel | 各卡保留模型副本、处理不同数据并同步梯度；尚未做硬件实验。 |
 
-[experiment.py](experiment.py) 保留显式注意力作参考，另写 `CachedDecoder`。缓存逐层保留 K/V，追加时只对新 Q/K 加入正确位置编码。超过上下文就报错，不能简单丢弃旧缓存后声称与滑动窗口模型相同。
+[experiment.py](experiment.py) 保留显式注意力作参考，另写 `CachedDecoder`。缓存逐层保留 K/V，追加时只对新 Q/K 加入正确位置编码。当前实现使用固定上下文窗口，超过长度时抛出错误。
 
 [测试](test_experiment.py)覆盖了多样本、分块预填充、逐步 logits、缓存字节数、上下文越界、批量变化，以及注意力反向梯度。
 
@@ -52,7 +52,7 @@
 
 ## 复盘
 
-缓存消除了历史位置的重复投影和前馈计算，但这里网络小、序列短，运行调度占比高，收益只有约 10%。注意力两种实现的计时区间也有重叠，不能从这些数字推断大模型或长序列同样有这个加速比，更不能将 PyTorch SDPA 结果写成自研 Triton 成绩。
+缓存消除了历史位置的重复投影和前馈计算。这里网络小、序列短，运行调度占比高，收益约 10%。注意力两种实现的计时区间有重叠；大模型、长序列和 Triton 内核需要各自测量。
 
 ## 实际命令
 
@@ -69,7 +69,7 @@ cd stages/02-systems
 
 ## 实验截图
 
-浏览器截图对应 [原始测量页面](reports/index.html)，不是运行中的终端。
+截图对应[测量记录页面](reports/index.html)。
 
 **注意力数值和前后向性能**
 

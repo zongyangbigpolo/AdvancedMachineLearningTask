@@ -1,25 +1,25 @@
 <!doctype html>
-<html lang="en"><meta charset="utf-8"><title>Week 1: actual 98M training evidence</title>
+<html lang="en"><meta charset="utf-8"><title>Stage 1: 98M training report</title>
 <style>
 body{font:16px/1.5 system-ui,sans-serif;margin:0;background:#edf1f5;color:#172033}
 main{max-width:1120px;margin:24px auto} section{background:white;padding:28px;margin:20px 0;border-radius:12px}
 h1,h2{margin-top:0} pre{background:#122033;color:#e3edf9;padding:18px;white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.5 monospace}
 .notice{border-left:5px solid #d97706;padding:12px;background:#fff7e6} img{max-width:100%} a{color:#174ca6}
 </style><main>
-<section id="results"><h1>Actual 98M model training: recorded results</h1>
-<p class="notice">Post-training evidence viewer. This is a screenshot of saved real records, NOT a live training terminal.</p>
+<section id="results"><h1>98M Transformer: training results</h1>
+<p class="notice">TinyStories, 100 optimizer updates, context length 128.</p>
 <p><strong>98,323,200 parameters | Apple M4 / MPS / FP32 | 100 updates | 12,800 sampled tokens</strong></p>
 <p>Fixed-window validation CE: 8.829942 → 3.513791 nats/token.
 Stopped at update 5, then resumed to update 100.</p>
-<img src="../loss.svg" alt="Actual loss curve from saved metrics">
-<p class="notice">Teaching budget only, NOT sufficient pretraining. Actual greedy generation is repetitive:</p>
+<img src="../loss.svg" alt="Training and validation loss">
+<p class="notice">Greedy completion:</p>
 <pre>Once upon a time the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the
 </pre></section>
-<section id="audit"><h2>Actual local checkpoint verification</h2>
+<section id="audit"><h2>Checkpoint and optimizer inspection</h2>
 <p>Executed after training; CPU inspection of the checkpoint produced by MPS training. <a href="audit.json">Raw audit JSON</a></p>
-<pre>.venv/bin/python -m scripts.week1_evidence &gt; reports/week1/checkpoint-verification.log</pre>
+<pre>.venv/bin/python -m scripts.evidence &gt; reports/checkpoint-verification.log</pre>
 <pre>{
-  &quot;verification&quot;: &quot;PASS: actual local checkpoint read after training&quot;,
+  &quot;verification&quot;: &quot;Checkpoint inspection passed&quot;,
   &quot;checkpoint&quot;: &quot;runs/week1-100m-mac/latest.pt&quot;,
   &quot;sha256&quot;: &quot;17ff9f6a715f7b50da993747bf8e3a354076fb25ee3b47ff741f1fe1eee0da58&quot;,
   &quot;bytes&quot;: 1179993355,
@@ -34,11 +34,11 @@ Stopped at update 5, then resumed to update 100.</p>
   &quot;original_stdout_matches_metrics&quot;: true,
   &quot;recorded_device&quot;: &quot;mps&quot;,
   &quot;verification_device&quot;: &quot;cpu&quot;,
-  &quot;disclosure&quot;: &quot;Post-training audit, not an image captured during the original training&quot;
+  &quot;report_type&quot;: &quot;Checkpoint and optimizer inspection&quot;
 }</pre></section>
 <section id="commands"><h2>Exact commands</h2><p>Original execution used repository-root paths and redirected stdout as shown.
 Existing nonempty run/data directories cannot be overwritten. <a href="commands.txt">Plain text commands</a></p>
-<pre># Actual commands used for the original teaching experiment (repository root)
+<pre># Experiment commands (original repository-root layout)
 .venv/bin/python -m aml.tinystories --output data/week1-raw --train-rows 512 --val-rows 128 &gt; runs/week1-data-download.log
 .venv/bin/python -m aml.tokenizer --input data/week1-raw/train.txt --output data/week1-tokenizer.json --vocab-size 8192
 .venv/bin/python -m aml.data --train data/week1-raw/train.txt --val data/week1-raw/val.txt --tokenizer data/week1-tokenizer.json --output data/week1-tokens &gt; runs/week1-data-encode.log
@@ -46,11 +46,11 @@ Existing nonempty run/data directories cannot be overwritten. <a href="commands.
 .venv/bin/python -m aml.train --config configs/100m-mac.json --data data/week1-tokens --output runs/week1-100m-mac --device mps --resume &gt; runs/week1-training-resume.log
 .venv/bin/python -m aml.generate --checkpoint runs/week1-100m-mac/latest.pt --prompt &#x27;Once upon a time&#x27; --temperature 0 --max-new-tokens 64 --device mps &gt; runs/week1-generation.txt
 
-# Post-training verification and evidence rendering (does not retrain the model)
+# Checkpoint inspection and report rendering
 .venv/bin/python -m scripts.week1_evidence &gt; reports/week1/checkpoint-verification.log
 </pre></section>
 <section id="logs"><h2>Original training stdout: selected checkpoints</h2>
-<p>JSON pretty-printed for readability; values unchanged. Full original logs:
+<p>JSON log view. Complete logs:
 <a href="week1-training-first.log">updates 0–5</a> and <a href="week1-training-resume.log">updates 6–100</a>.</p>
 <pre>{
   &quot;step&quot;: 0,

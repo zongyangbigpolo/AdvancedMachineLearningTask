@@ -38,7 +38,7 @@ def main() -> None:
                                            "input_documents", "kept_documents", "removed",
                                            "train_documents", "validation_documents", "cross_split_exact_duplicates")
             },
-            "Actual fixed-budget training, three seeds per size": [
+            "Fixed-budget training, three seeds per size": [
                 {key: run[key] for key in ("parameters", "seed", "tokens_seen", "validation_ce")}
                 for run in result["runs"]
             ],
@@ -61,17 +61,24 @@ def main() -> None:
         traces = json.loads((report / "traces.json").read_text())
         episode = next(row for row in traces if row["label"] == "plus_self_judge" and row["goals"] == 8)
         sections = {
-            "Actual task training and external reward": {
+            "Task training and environment reward": {
                 key: value for key, value in result["training"].items() if key != "curve"
             },
             "Held-out complete-episode success and model-call cost": [
                 {key: row[key] for key in ("label", "goals", "episodes", "verified_successes", "mean_model_calls")}
                 for row in result["evaluation"]
             ],
-            "Actual neural-agent trajectory, first and last four actions": {
-                "verified_success": episode["verified_success"], "steps": episode["steps"],
-                "targets": episode["targets"], "final_values": episode["final_values"],
-                "first_actions": episode["trace"][:4], "last_actions": episode["trace"][-4:],
+            "Neural-agent trajectory, first and last four actions": [
+                {"step": index + 1, "goal": row["observation"]["goal"],
+                 "current": row["observation"]["current"], "target": row["observation"]["target"],
+                 "draft": row["draft"], "action": row["action"], "feedback": row["feedback"]["reason"]}
+                for index, row in enumerate(episode["trace"])
+                if index < 4 or index >= len(episode["trace"]) - 4
+            ],
+            "Final-state evaluation, saved episode and reloaded-model demo": {
+                "saved_evaluation": {key: episode[key] for key in
+                                     ("verified_success", "steps", "model_calls", "targets", "final_values")},
+                "fresh_demo": json.loads((report / "demo.jsonl").read_text().splitlines()[-1]),
             },
         }
     save_record(report, f"Measured experiment: {args.stage}", result, sections)

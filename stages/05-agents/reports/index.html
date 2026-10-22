@@ -1,0 +1,62 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Measured experiment: 05-agents</title><style>body{font:16px/1.5 system-ui;background:#edf1f5;color:#182336;margin:0}main{max-width:1080px;margin:24px auto}section,header{background:white;padding:24px;margin:18px 0;border-radius:10px}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.5 monospace;background:#142338;color:#e8eef5;padding:20px}h1,h2{margin-top:0}table{border-collapse:collapse;width:100%;font-size:13px}th,td{border:1px solid #cbd5e1;padding:8px;text-align:left;overflow-wrap:anywhere}th{background:#e8eef5}</style><main><header><h1>Measured experiment: 05-agents</h1><p>Experiment configuration, measurements and results.</p><pre>experiment.py --sft-steps 300 --rl-episodes 24</pre><a href="results.json">Machine-readable results</a></header><section id="part0"><h2>Task training and environment reward</h2><pre>{
+  &quot;base_sha256&quot;: &quot;110875733133ec920eadac91cfd923728bc68eefcdd6b624a131282e6de4f8db&quot;,
+  &quot;parameters&quot;: 289248,
+  &quot;demonstration_rows&quot;: 10556,
+  &quot;imitation_updates&quot;: 300,
+  &quot;rl_episodes&quot;: 24,
+  &quot;imitation_seconds&quot;: 4.064245209097862,
+  &quot;reinforcement_seconds&quot;: 0.345716750016436
+}</pre></section><section id="part1"><h2>Held-out complete-episode success and model-call cost</h2><table><thead><tr><th>label</th><th>goals</th><th>episodes</th><th>verified_successes</th><th>mean_model_calls</th></tr></thead><tbody><tr><td>before_agent_training</td><td>1</td><td>12</td><td>0</td><td>15.25</td></tr><tr><td>before_agent_training</td><td>4</td><td>12</td><td>0</td><td>4.666666666666667</td></tr><tr><td>before_agent_training</td><td>8</td><td>12</td><td>0</td><td>5.916666666666667</td></tr><tr><td>before_agent_training</td><td>16</td><td>12</td><td>0</td><td>3.25</td></tr><tr><td>trajectory_sft</td><td>1</td><td>12</td><td>12</td><td>3.9166666666666665</td></tr><tr><td>trajectory_sft</td><td>4</td><td>12</td><td>12</td><td>18.583333333333332</td></tr><tr><td>trajectory_sft</td><td>8</td><td>12</td><td>12</td><td>36.083333333333336</td></tr><tr><td>trajectory_sft</td><td>16</td><td>12</td><td>12</td><td>68.08333333333333</td></tr><tr><td>trajectory_sft_plus_rl</td><td>1</td><td>12</td><td>12</td><td>3.9166666666666665</td></tr><tr><td>trajectory_sft_plus_rl</td><td>4</td><td>12</td><td>12</td><td>18.583333333333332</td></tr><tr><td>trajectory_sft_plus_rl</td><td>8</td><td>12</td><td>12</td><td>36.083333333333336</td></tr><tr><td>trajectory_sft_plus_rl</td><td>16</td><td>12</td><td>12</td><td>68.08333333333333</td></tr><tr><td>plus_self_judge</td><td>1</td><td>12</td><td>12</td><td>7.833333333333333</td></tr><tr><td>plus_self_judge</td><td>4</td><td>12</td><td>12</td><td>37.166666666666664</td></tr><tr><td>plus_self_judge</td><td>8</td><td>12</td><td>12</td><td>72.16666666666667</td></tr><tr><td>plus_self_judge</td><td>16</td><td>12</td><td>12</td><td>136.16666666666666</td></tr><tr><td>draft_noise_without_judge</td><td>1</td><td>12</td><td>9</td><td>3.6666666666666665</td></tr><tr><td>draft_noise_without_judge</td><td>4</td><td>12</td><td>2</td><td>10.0</td></tr><tr><td>draft_noise_without_judge</td><td>8</td><td>12</td><td>2</td><td>19.083333333333332</td></tr><tr><td>draft_noise_without_judge</td><td>16</td><td>12</td><td>0</td><td>18.75</td></tr><tr><td>draft_noise_with_judge</td><td>1</td><td>12</td><td>12</td><td>7.833333333333333</td></tr><tr><td>draft_noise_with_judge</td><td>4</td><td>12</td><td>12</td><td>37.166666666666664</td></tr><tr><td>draft_noise_with_judge</td><td>8</td><td>12</td><td>12</td><td>72.16666666666667</td></tr><tr><td>draft_noise_with_judge</td><td>16</td><td>12</td><td>12</td><td>136.16666666666666</td></tr></tbody></table></section><section id="part2"><h2>Neural-agent trajectory, first and last four actions</h2><table><thead><tr><th>step</th><th>goal</th><th>current</th><th>target</th><th>draft</th><th>action</th><th>feedback</th></tr></thead><tbody><tr><td>1</td><td>0</td><td>7</td><td>6</td><td>L</td><td>L</td><td></td></tr><tr><td>2</td><td>0</td><td>6</td><td>6</td><td>S</td><td>S</td><td></td></tr><tr><td>3</td><td>1</td><td>2</td><td>9</td><td>R</td><td>R</td><td></td></tr><tr><td>4</td><td>1</td><td>3</td><td>9</td><td>R</td><td>R</td><td></td></tr><tr><td>29</td><td>6</td><td>7</td><td>6</td><td>L</td><td>L</td><td></td></tr><tr><td>30</td><td>6</td><td>6</td><td>6</td><td>S</td><td>S</td><td></td></tr><tr><td>31</td><td>7</td><td>0</td><td>1</td><td>R</td><td>R</td><td></td></tr><tr><td>32</td><td>7</td><td>1</td><td>1</td><td>S</td><td>S</td><td>all_goals_committed</td></tr></tbody></table></section><section id="part3"><h2>Final-state evaluation, saved episode and reloaded-model demo</h2><pre>{
+  &quot;saved_evaluation&quot;: {
+    &quot;verified_success&quot;: true,
+    &quot;steps&quot;: 32,
+    &quot;model_calls&quot;: 64,
+    &quot;targets&quot;: [
+      6,
+      9,
+      5,
+      6,
+      2,
+      1,
+      6,
+      1
+    ],
+    &quot;final_values&quot;: [
+      6,
+      9,
+      5,
+      6,
+      2,
+      1,
+      6,
+      1
+    ]
+  },
+  &quot;fresh_demo&quot;: {
+    &quot;verified_success&quot;: true,
+    &quot;reason&quot;: &quot;all_goals_committed&quot;,
+    &quot;steps&quot;: 36,
+    &quot;model_calls&quot;: 72,
+    &quot;seconds&quot;: 0.072609500028193,
+    &quot;final_values&quot;: [
+      6,
+      9,
+      5,
+      6,
+      2,
+      1,
+      6,
+      1
+    ],
+    &quot;targets&quot;: [
+      6,
+      9,
+      5,
+      6,
+      2,
+      1,
+      6,
+      1
+    ]
+  }
+}</pre></section></main></html>

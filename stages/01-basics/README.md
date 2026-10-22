@@ -17,7 +17,7 @@
 ```text
 故事 → 分词器 → 整数编号 → Transformer → 下一个编号的概率
                                     ↓
-                           与真实答案计算损失
+                           与目标答案计算损失
                                     ↓
                                更新模型参数
 ```
@@ -57,7 +57,7 @@
 | 3 | 把故事编码为小端 uint32 文件；读入时随机抽窗口，目标右移一位 | [data.py](aml/data.py) |
 | 4 | 写 12 层、宽度 768、12 头、前馈宽度 2304 的网络 | [model.py](aml/model.py) |
 | 5 | 先检查小模型过拟合、因果遮罩、梯度和恢复，再训练一亿参数模型 | [测试](tests/test_basics.py)、[训练器](aml/train.py) |
-| 6 | 固定验证窗口评估；加载真实权重生成三组文本 | [检查与记录脚本](scripts/inspect_pipeline.py) |
+| 6 | 固定验证窗口评估；加载权重生成三组文本 | [检查与记录脚本](scripts/inspect_pipeline.py) |
 
 选择 TinyStories 是为了先用简单英文故事检查整条训练链路；选择 byte BPE 是为了兼顾可逆性和序列长度。先保留显式矩阵注意力，便于与参考数值核对，再在第二阶段测优化。
 
@@ -88,7 +88,7 @@ PyTorch 提供张量、自动求导和 AdamW；分词器、线性层、归一化
 | 单词，保留空白片段 | 35,330 | 有 982 个片段不在训练词表里 |
 | Byte BPE | 39,574 | 不需要未知词占位，英文序列比字符短 |
 
-这比较的是长度和未知片段，不把不同分词方式的语言模型损失混在一起比较。
+本表比较序列长度和未知片段数量；语言模型损失在固定分词器下另行评估。
 
 实际贪心生成：
 
@@ -98,7 +98,7 @@ Once upon a time, there was a little girl named who was a little girl named Tim 
 The little girl was very excited and he had a big tree. The little girl was so excited ...
 ```
 
-比原来连续输出 `the` 多学到了一些词组，但仍有重复、语法与指代错误。下一次需要增加独立故事数量，并比较增加数据与反复读同一数据的差别；不能仅凭损失下降判断故事质量。
+比原来连续输出 `the` 多学到了一些词组，但仍有重复、语法与指代错误。后续增加独立故事数量，比较扩充数据与重复训练的差别；损失和生成质量分别记录。
 
 ## 实际命令
 
@@ -118,7 +118,7 @@ uv sync --locked --python 3.12
 .venv/bin/python -m scripts.inspect_pipeline > runs/local-1500-inspection.json
 ```
 
-`week1` 仅保留在旧实验文件名里，不代表任务期限。逐行说明收在[代码附录](docs/code/README.md)，不另外安排一条学习路线。
+旧实验使用 `week1` 作为文件名中的运行标识。逐行说明收在[代码附录](docs/code/README.md)。
 
 ## 数据与权重
 

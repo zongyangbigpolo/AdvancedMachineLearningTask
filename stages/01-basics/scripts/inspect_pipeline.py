@@ -1,4 +1,4 @@
-"""Record real tokenizer, data, model and training measurements for stage one."""
+"""Record tokenizer, data, model and training measurements for stage one."""
 
 import json
 import re
@@ -70,8 +70,8 @@ def main() -> None:
     save_record(report, "Stage 1 — tokenizer, model, 98M training and generation", result, {
         "1. Tokenization on held-out stories": comparison,
         "2. Model and training measurements": {k: v for k, v in result.items() if k not in ("tokenizers", "generation")},
-        "3. Actual greedy completions": samples,
-        "4. Actual component-test output": test.stdout + test.stderr,
+        "3. Greedy completions": samples,
+        "4. Component-test output": test.stdout + test.stderr,
     })
     print(json.dumps(result, indent=2, ensure_ascii=False))
 

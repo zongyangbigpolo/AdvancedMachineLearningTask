@@ -15,7 +15,7 @@
 | 恢复演示 | 先停在 step 5，再恢复到 step 100；学习率仍按总共 100 步调度 |
 | 费用 | 不租用外部 GPU，不创建付费服务；使用本地机器 |
 
-这是明确有上限的**教学训练**，不是充分预训练。100 步只接触约 0.00013 token/parameter，远低于常见数据预算启发式。验证 loss 下降也可能只是学到空格、频繁词等分布，不能说明能写故事；实际生成中的重复正是需要展示的失败案例。
+本次预算为 100 次更新、12,800 个采样 token，约 0.00013 token/parameter。验证损失从 8.83 降至 3.51，生成文本则出现高频词重复；这提示下一步应增加语料与训练预算，并将损失变化和生成质量分开分析。
 
 ## 从干净目录重放
 
@@ -48,12 +48,12 @@ python -m aml.generate --checkpoint runs/week1-100m-mac/latest.pt \
 
 ## 数据授权与复现限制
 
-来源：[roneneldan/TinyStories](https://huggingface.co/datasets/roneneldan/TinyStories)，作者 Ronen Eldan、Yuanzhi Li；数据卡许可证为 [CDLA-Sharing-1.0](https://cdla.dev/sharing-1-0/)。下载器保留署名、许可证链接，并声明空白被规范化。一行一个完整故事，不是把故事内部换行拆成多个文档。原文、token 文件和 checkpoint 不提交 Git。
+来源：[roneneldan/TinyStories](https://huggingface.co/datasets/roneneldan/TinyStories)，作者 Ronen Eldan、Yuanzhi Li；许可为 [CDLA-Sharing-1.0](https://cdla.dev/sharing-1-0/)。下载器保留署名、许可链接和空白规范化说明，每行保存一个完整故事。小数据包见第一阶段 `artifacts/`，完整 checkpoint 见同仓库 Releases。
 
-API 返回页没有锁定数据集 revision。`source.json` 保存请求 URL、页响应 SHA、最终文本 SHA；远端数据有变时，应以本次记录为不同数据版本，而不是宣称完全复现。检查了精确重复和精确跨集重叠，但没有做语义近重复 / 模板泄漏审计；前缀抽样不具有随机代表性。
+API 返回页未锁定数据集 revision。`source.json` 保存请求 URL、页响应 SHA 和最终文本 SHA；远端数据变化时按不同数据版本记录。质量检查覆盖精确重复和跨集重叠；语义近重复、模板泄漏及随机抽样对照尚未展开。
 
 ## 现场 Demo
 
-先展示 BPE round-trip，再展示 `reports/` 中的真实训练曲线与预算；打开本地 `manifest.json`、`metrics.jsonl` 和 `latest.pt`，最后运行生成命令。应主动指出重复生成、短 context、验证窗口太少、数据集过小等限制。
+演示顺序：BPE 编解码往返、训练曲线与预算、运行配置与指标、加载权重生成。结果分析关注重复输出、上下文长度、验证采样和数据规模。
 
-同一 Mac 上可加载本地权重；全新 clone 只包含代码与轻量实验记录，需要按上述命令重新训练。checkpoint 包含 Adam 状态，远大于 GitHub 普通单文件限制，不把它硬塞进 main。
+模型权重可从同仓库的 [Releases](https://github.com/zongyangbigpolo/AdvancedMachineLearningTask/releases) 下载；小数据包随第一阶段提交。checkpoint 包含 Adam 状态，单份约 1.18 GB，因此使用 Release 分发。

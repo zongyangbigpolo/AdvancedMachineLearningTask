@@ -44,7 +44,7 @@ Mac 和大预算配置参数量相同，但实验预算、上下文与有效 bat
 | 9 | 支持 Python 3.11 及以后；本次实测 Python 3.12。 |
 | 10 | 唯一直接运行时依赖是 PyTorch；它本身可能安装传递依赖。 |
 | 12 | setuptools 的包发现设置。 |
-| 13 | 只打包 `aml*`，不把数据、实验或文档装成 Python package。 |
+| 13 | Python 包只包含 `aml*`；数据、实验和文档单独存放。 |
 
 `uv.lock` 是 `uv lock` 生成的依赖版本、平台选择与下载摘要，不是手写算法。`uv sync --locked` 按这个锁文件安装，避免只看宽版本区间造成环境漂移。不要逐行手改几百行平台 wheel URL。
 
@@ -59,6 +59,6 @@ Mac 和大预算配置参数量相同，但实验预算、上下文与有效 bat
 | 3 `*.py[cod]` | 不提交字节码、优化字节码等编译产物。 |
 | 4 `*.egg-info/` | 不提交 editable 安装元数据。 |
 | 5 `.pytest_cache/` | 即使有人用 pytest，也不提交它的缓存。 |
-| 6 `data/` | 不把原文、token 文件和大型数据混入 Git 历史。 |
-| 7 `runs/` | 不提交大 checkpoint、本地日志和临时实验；精选轻量证据在 reports。 |
+| 6 `data/` | 本地数据工作目录；可分发的小子集另存为阶段归档。 |
+| 7 `runs/` | 本地训练工作目录；报告保存在 reports，模型另按文件大小打包或上传 Release。 |
 | 8 `.DS_Store` | 忽略 macOS Finder 自动产生的目录元数据。 |

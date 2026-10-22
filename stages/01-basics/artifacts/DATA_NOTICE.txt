@@ -7,7 +7,7 @@ SPDX: CDLA-Sharing-1.0
 Full unmodified license: https://cdla.dev/sharing-1-0/
 
 Change notice for data/week1-raw/train.txt and val.txt:
-These files are modified subsets of TinyStories, not the original full dataset.
+These files are modified subsets of TinyStories.
 The first 512 training and 128 validation stories were selected from the
 dataset-server API. Internal whitespace was normalized; each story occupies
 one line. Source URLs, download-page hashes, transformation details and the
@@ -16,7 +16,7 @@ resulting text hashes are in data/week1-raw/source.json.
 Change notice for data/week1-tokens/*.bin:
 These are the same modified texts encoded by this repository's byte BPE
 tokenizer, with an EOS token appended to each story. They are uint32
-little-endian token IDs, not independently collected text.
+little-endian token IDs.
 
 All included data and modified data remain under CDLA-Sharing-1.0.
 This archive adds no restrictions on use or redistribution.

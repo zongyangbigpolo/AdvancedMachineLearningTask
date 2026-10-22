@@ -8,9 +8,9 @@
 | [02 系统](stages/02-systems/README.md) | 注意力内核、多卡、训练与推理性能 | Mac 注意力与 KV 缓存实测；Triton、多卡待设备 |
 | [03 数据与规模](stages/03-data-scaling/README.md) | 原始数据清洗、规模实验、拟合与外推 | 原始 XML 清洗、15 次训练、最大模型留出误差 0.86% |
 | [04 对齐](stages/04-alignment/README.md) | 同一基座的 SFT、DPO、RLVR 对照 | 同基座 9 次训练；数字任务平均正确率 90% / 90% / 85% |
-| [05 智能体](stages/05-agents/README.md) | 可验证环境、运行框架、长程训练与自评循环 | 待提交 |
+| [05 智能体](stages/05-agents/README.md) | 可验证环境、运行框架、长程训练与自评循环 | 神经策略与长动作链、自评对照、权重、Demo 和英文报告 |
 
-本次使用本机 Apple M4，不租 GPU。Triton 和多 GPU 实测保留为待补项，其余项目以各阶段实际记录为准。每阶段整理完单独提交并 push 到 `main`。
+本次使用本机 Apple M4，不租 GPU。各阶段已分别提交并 push 到 `main`；Triton 和多 GPU 实测仍是未勾选项，其余结果见各阶段记录。
 
 运行前先进入对应阶段目录。第一阶段安装依赖，后续阶段复用该 Python 环境：
 
@@ -21,4 +21,6 @@ uv sync --locked --python 3.12
 
 小数据包和小模型随阶段保存；超过 Git 文件限制的大模型放同仓库 [Releases](https://github.com/zongyangbigpolo/AdvancedMachineLearningTask/releases)。下载命令与摘要见对应阶段 README。
 
-最终交付为 NeurIPS（Neural Information Processing Systems）格式英文报告和现场 Demo（Demonstration，演示）。[公开参考与对照记录](stages/01-basics/docs/references.md)区分了第三方结果和本仓库实际测量。
+最终交付为 NeurIPS（Neural Information Processing Systems）格式英文报告和现场 Demo（Demonstration，演示）。方法来源与实现取舍见[参考资料](stages/01-basics/docs/references.md)。
+
+[英文报告 PDF](stages/05-agents/report/paper.pdf) · [可执行 Demo](stages/05-agents/demo.py)

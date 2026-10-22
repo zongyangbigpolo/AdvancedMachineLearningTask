@@ -1,0 +1,530 @@
+{
+  "command": "experiment.py --sft-steps 300 --rl-episodes 24",
+  "python": "3.12.12",
+  "torch": "2.14.1",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "environment": "Sequential integer-ledger goals. L decrements, R increments, S commits current goal.",
+  "policy": "Transformer logits over L/R/S. No teaching_action call in inference or self-judge.",
+  "verifier": "Final values, ordered commits and terminated-success state must agree.",
+  "training": {
+    "base_sha256": "110875733133ec920eadac91cfd923728bc68eefcdd6b624a131282e6de4f8db",
+    "parameters": 289248,
+    "demonstration_rows": 10556,
+    "imitation_updates": 300,
+    "rl_episodes": 24,
+    "imitation_seconds": 4.064245209097862,
+    "reinforcement_seconds": 0.345716750016436,
+    "curve": [
+      {
+        "imitation_step": 25,
+        "loss": 0.7479361891746521
+      },
+      {
+        "imitation_step": 50,
+        "loss": 0.2608608603477478
+      },
+      {
+        "imitation_step": 75,
+        "loss": 0.25607091188430786
+      },
+      {
+        "imitation_step": 100,
+        "loss": 0.07661742717027664
+      },
+      {
+        "imitation_step": 125,
+        "loss": 0.08758487552404404
+      },
+      {
+        "imitation_step": 150,
+        "loss": 0.0656462162733078
+      },
+      {
+        "imitation_step": 175,
+        "loss": 0.09202985465526581
+      },
+      {
+        "imitation_step": 200,
+        "loss": 0.07927657663822174
+      },
+      {
+        "imitation_step": 225,
+        "loss": 0.070733942091465
+      },
+      {
+        "imitation_step": 250,
+        "loss": 0.0014041196554899216
+      },
+      {
+        "imitation_step": 275,
+        "loss": 0.0010398642625659704
+      },
+      {
+        "imitation_step": 300,
+        "loss": 0.00209660897962749
+      },
+      {
+        "rl_episode": 1,
+        "goals": 1,
+        "steps": 6,
+        "externally_verified_reward": 1.0,
+        "loss": 0.002448898507282138
+      },
+      {
+        "rl_episode": 2,
+        "goals": 1,
+        "steps": 2,
+        "externally_verified_reward": 1.0,
+        "loss": 0.0037896984722465277
+      },
+      {
+        "rl_episode": 3,
+        "goals": 1,
+        "steps": 7,
+        "externally_verified_reward": 1.0,
+        "loss": 0.002681498881429434
+      },
+      {
+        "rl_episode": 4,
+        "goals": 1,
+        "steps": 3,
+        "externally_verified_reward": 1.0,
+        "loss": 0.0019377486314624548
+      },
+      {
+        "rl_episode": 5,
+        "goals": 1,
+        "steps": 2,
+        "externally_verified_reward": 1.0,
+        "loss": 0.0010572078172117472
+      },
+      {
+        "rl_episode": 6,
+        "goals": 1,
+        "steps": 4,
+        "externally_verified_reward": 1.0,
+        "loss": 0.001574062742292881
+      },
+      {
+        "rl_episode": 7,
+        "goals": 1,
+        "steps": 2,
+        "externally_verified_reward": 1.0,
+        "loss": 0.003197739366441965
+      },
+      {
+        "rl_episode": 8,
+        "goals": 1,
+        "steps": 4,
+        "externally_verified_reward": 1.0,
+        "loss": 0.0014513246715068817
+      },
+      {
+        "rl_episode": 9,
+        "goals": 2,
+        "steps": 14,
+        "externally_verified_reward": 1.0,
+        "loss": 0.0047148712910711765
+      },
+      {
+        "rl_episode": 10,
+        "goals": 2,
+        "steps": 11,
+        "externally_verified_reward": 1.0,
+        "loss": 0.0035801830235868692
+      },
+      {
+        "rl_episode": 11,
+        "goals": 2,
+        "steps": 7,
+        "externally_verified_reward": 1.0,
+        "loss": 3.672532796859741
+      },
+      {
+        "rl_episode": 12,
+        "goals": 2,
+        "steps": 8,
+        "externally_verified_reward": 1.0,
+        "loss": 0.004579899366945028
+      },
+      {
+        "rl_episode": 13,
+        "goals": 2,
+        "steps": 5,
+        "externally_verified_reward": 1.0,
+        "loss": 0.0020049624145030975
+      },
+      {
+        "rl_episode": 14,
+        "goals": 2,
+        "steps": 12,
+        "externally_verified_reward": 1.0,
+        "loss": 0.004960082471370697
+      },
+      {
+        "rl_episode": 15,
+        "goals": 2,
+        "steps": 11,
+        "externally_verified_reward": 1.0,
+        "loss": 0.0031490763649344444
+      },
+      {
+        "rl_episode": 16,
+        "goals": 2,
+        "steps": 4,
+        "externally_verified_reward": 1.0,
+        "loss": 0.0029176247771829367
+      },
+      {
+        "rl_episode": 17,
+        "goals": 3,
+        "steps": 7,
+        "externally_verified_reward": 1.0,
+        "loss": 0.002674567047506571
+      },
+      {
+        "rl_episode": 18,
+        "goals": 3,
+        "steps": 8,
+        "externally_verified_reward": 1.0,
+        "loss": 0.007801587227731943
+      },
+      {
+        "rl_episode": 19,
+        "goals": 3,
+        "steps": 13,
+        "externally_verified_reward": 1.0,
+        "loss": 0.004194141365587711
+      },
+      {
+        "rl_episode": 20,
+        "goals": 3,
+        "steps": 8,
+        "externally_verified_reward": 1.0,
+        "loss": 0.005145506467670202
+      },
+      {
+        "rl_episode": 21,
+        "goals": 3,
+        "steps": 11,
+        "externally_verified_reward": 1.0,
+        "loss": 0.004331160336732864
+      },
+      {
+        "rl_episode": 22,
+        "goals": 3,
+        "steps": 16,
+        "externally_verified_reward": 1.0,
+        "loss": 0.004970199428498745
+      },
+      {
+        "rl_episode": 23,
+        "goals": 3,
+        "steps": 15,
+        "externally_verified_reward": 1.0,
+        "loss": 0.004163502715528011
+      },
+      {
+        "rl_episode": 24,
+        "goals": 3,
+        "steps": 12,
+        "externally_verified_reward": 1.0,
+        "loss": 0.004334109369665384
+      }
+    ]
+  },
+  "evaluation": [
+    {
+      "label": "before_agent_training",
+      "goals": 1,
+      "episodes": 12,
+      "verified_successes": 0,
+      "success_rate": 0.0,
+      "mean_steps": 15.25,
+      "mean_model_calls": 15.25,
+      "total_seconds": 0.10960487299598753,
+      "draft_error_rate": 0,
+      "self_judge": false
+    },
+    {
+      "label": "before_agent_training",
+      "goals": 4,
+      "episodes": 12,
+      "verified_successes": 0,
+      "success_rate": 0.0,
+      "mean_steps": 4.666666666666667,
+      "mean_model_calls": 4.666666666666667,
+      "total_seconds": 0.03283387469127774,
+      "draft_error_rate": 0,
+      "self_judge": false
+    },
+    {
+      "label": "before_agent_training",
+      "goals": 8,
+      "episodes": 12,
+      "verified_successes": 0,
+      "success_rate": 0.0,
+      "mean_steps": 5.916666666666667,
+      "mean_model_calls": 5.916666666666667,
+      "total_seconds": 0.044203794561326504,
+      "draft_error_rate": 0,
+      "self_judge": false
+    },
+    {
+      "label": "before_agent_training",
+      "goals": 16,
+      "episodes": 12,
+      "verified_successes": 0,
+      "success_rate": 0.0,
+      "mean_steps": 3.25,
+      "mean_model_calls": 3.25,
+      "total_seconds": 0.023595582926645875,
+      "draft_error_rate": 0,
+      "self_judge": false
+    },
+    {
+      "label": "trajectory_sft",
+      "goals": 1,
+      "episodes": 12,
+      "verified_successes": 12,
+      "success_rate": 1.0,
+      "mean_steps": 3.9166666666666665,
+      "mean_model_calls": 3.9166666666666665,
+      "total_seconds": 0.027001875219866633,
+      "draft_error_rate": 0,
+      "self_judge": false
+    },
+    {
+      "label": "trajectory_sft",
+      "goals": 4,
+      "episodes": 12,
+      "verified_successes": 12,
+      "success_rate": 1.0,
+      "mean_steps": 18.583333333333332,
+      "mean_model_calls": 18.583333333333332,
+      "total_seconds": 0.1270448334980756,
+      "draft_error_rate": 0,
+      "self_judge": false
+    },
+    {
+      "label": "trajectory_sft",
+      "goals": 8,
+      "episodes": 12,
+      "verified_successes": 12,
+      "success_rate": 1.0,
+      "mean_steps": 36.083333333333336,
+      "mean_model_calls": 36.083333333333336,
+      "total_seconds": 0.2438211648259312,
+      "draft_error_rate": 0,
+      "self_judge": false
+    },
+    {
+      "label": "trajectory_sft",
+      "goals": 16,
+      "episodes": 12,
+      "verified_successes": 12,
+      "success_rate": 1.0,
+      "mean_steps": 68.08333333333333,
+      "mean_model_calls": 68.08333333333333,
+      "total_seconds": 0.46188299800269306,
+      "draft_error_rate": 0,
+      "self_judge": false
+    },
+    {
+      "label": "trajectory_sft_plus_rl",
+      "goals": 1,
+      "episodes": 12,
+      "verified_successes": 12,
+      "success_rate": 1.0,
+      "mean_steps": 3.9166666666666665,
+      "mean_model_calls": 3.9166666666666665,
+      "total_seconds": 0.027322585694491863,
+      "draft_error_rate": 0,
+      "self_judge": false
+    },
+    {
+      "label": "trajectory_sft_plus_rl",
+      "goals": 4,
+      "episodes": 12,
+      "verified_successes": 12,
+      "success_rate": 1.0,
+      "mean_steps": 18.583333333333332,
+      "mean_model_calls": 18.583333333333332,
+      "total_seconds": 0.12423662515357137,
+      "draft_error_rate": 0,
+      "self_judge": false
+    },
+    {
+      "label": "trajectory_sft_plus_rl",
+      "goals": 8,
+      "episodes": 12,
+      "verified_successes": 12,
+      "success_rate": 1.0,
+      "mean_steps": 36.083333333333336,
+      "mean_model_calls": 36.083333333333336,
+      "total_seconds": 0.2431116672232747,
+      "draft_error_rate": 0,
+      "self_judge": false
+    },
+    {
+      "label": "trajectory_sft_plus_rl",
+      "goals": 16,
+      "episodes": 12,
+      "verified_successes": 12,
+      "success_rate": 1.0,
+      "mean_steps": 68.08333333333333,
+      "mean_model_calls": 68.08333333333333,
+      "total_seconds": 0.45444412529468536,
+      "draft_error_rate": 0,
+      "self_judge": false
+    },
+    {
+      "label": "plus_self_judge",
+      "goals": 1,
+      "episodes": 12,
+      "verified_successes": 12,
+      "success_rate": 1.0,
+      "mean_steps": 3.9166666666666665,
+      "mean_model_calls": 7.833333333333333,
+      "total_seconds": 0.054500331869348884,
+      "draft_error_rate": 0,
+      "self_judge": true
+    },
+    {
+      "label": "plus_self_judge",
+      "goals": 4,
+      "episodes": 12,
+      "verified_successes": 12,
+      "success_rate": 1.0,
+      "mean_steps": 18.583333333333332,
+      "mean_model_calls": 37.166666666666664,
+      "total_seconds": 0.25833187578246,
+      "draft_error_rate": 0,
+      "self_judge": true
+    },
+    {
+      "label": "plus_self_judge",
+      "goals": 8,
+      "episodes": 12,
+      "verified_successes": 12,
+      "success_rate": 1.0,
+      "mean_steps": 36.083333333333336,
+      "mean_model_calls": 72.16666666666667,
+      "total_seconds": 0.5025769576895982,
+      "draft_error_rate": 0,
+      "self_judge": true
+    },
+    {
+      "label": "plus_self_judge",
+      "goals": 16,
+      "episodes": 12,
+      "verified_successes": 12,
+      "success_rate": 1.0,
+      "mean_steps": 68.08333333333333,
+      "mean_model_calls": 136.16666666666666,
+      "total_seconds": 0.9442025418393314,
+      "draft_error_rate": 0,
+      "self_judge": true
+    },
+    {
+      "label": "draft_noise_without_judge",
+      "goals": 1,
+      "episodes": 12,
+      "verified_successes": 9,
+      "success_rate": 0.75,
+      "mean_steps": 3.6666666666666665,
+      "mean_model_calls": 3.6666666666666665,
+      "total_seconds": 0.02442824887111783,
+      "draft_error_rate": 0.1,
+      "self_judge": false
+    },
+    {
+      "label": "draft_noise_without_judge",
+      "goals": 4,
+      "episodes": 12,
+      "verified_successes": 2,
+      "success_rate": 0.16666666666666666,
+      "mean_steps": 10.0,
+      "mean_model_calls": 10.0,
+      "total_seconds": 0.0665267922449857,
+      "draft_error_rate": 0.1,
+      "self_judge": false
+    },
+    {
+      "label": "draft_noise_without_judge",
+      "goals": 8,
+      "episodes": 12,
+      "verified_successes": 2,
+      "success_rate": 0.16666666666666666,
+      "mean_steps": 19.083333333333332,
+      "mean_model_calls": 19.083333333333332,
+      "total_seconds": 0.127081957180053,
+      "draft_error_rate": 0.1,
+      "self_judge": false
+    },
+    {
+      "label": "draft_noise_without_judge",
+      "goals": 16,
+      "episodes": 12,
+      "verified_successes": 0,
+      "success_rate": 0.0,
+      "mean_steps": 18.75,
+      "mean_model_calls": 18.75,
+      "total_seconds": 0.12378116720356047,
+      "draft_error_rate": 0.1,
+      "self_judge": false
+    },
+    {
+      "label": "draft_noise_with_judge",
+      "goals": 1,
+      "episodes": 12,
+      "verified_successes": 12,
+      "success_rate": 1.0,
+      "mean_steps": 3.9166666666666665,
+      "mean_model_calls": 7.833333333333333,
+      "total_seconds": 0.05446741729974747,
+      "draft_error_rate": 0.1,
+      "self_judge": true
+    },
+    {
+      "label": "draft_noise_with_judge",
+      "goals": 4,
+      "episodes": 12,
+      "verified_successes": 12,
+      "success_rate": 1.0,
+      "mean_steps": 18.583333333333332,
+      "mean_model_calls": 37.166666666666664,
+      "total_seconds": 0.2584512105677277,
+      "draft_error_rate": 0.1,
+      "self_judge": true
+    },
+    {
+      "label": "draft_noise_with_judge",
+      "goals": 8,
+      "episodes": 12,
+      "verified_successes": 12,
+      "success_rate": 1.0,
+      "mean_steps": 36.083333333333336,
+      "mean_model_calls": 72.16666666666667,
+      "total_seconds": 0.5054753746371716,
+      "draft_error_rate": 0.1,
+      "self_judge": true
+    },
+    {
+      "label": "draft_noise_with_judge",
+      "goals": 16,
+      "episodes": 12,
+      "verified_successes": 12,
+      "success_rate": 1.0,
+      "mean_steps": 68.08333333333333,
+      "mean_model_calls": 136.16666666666666,
+      "total_seconds": 0.9530624591279775,
+      "draft_error_rate": 0.1,
+      "self_judge": true
+    }
+  ],
+  "checkpoint_sha256": "c24b91dc7a4cf33caa023e70057b5290b7cc135e37c1a4f1f2d47bfe9bd8ec19",
+  "self_judge": "Same model, separately trained review prompt, no access to external verifier during correction.",
+  "split": "Training and test use different episode seeds; test goal sequences are new, digit domain is shared.",
+  "stress_test": "10% draft-action corruption is a separate declared robustness test, not ordinary performance."
+}

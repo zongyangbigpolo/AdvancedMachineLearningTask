@@ -1,4 +1,4 @@
-"""Clean an actual MediaWiki XML export, train size pilots, and test an extrapolation."""
+"""Clean a MediaWiki XML export, train size pilots, and test an extrapolation."""
 
 import argparse
 import hashlib
@@ -274,8 +274,8 @@ def main() -> None:
     result = {"data": card, "runs": runs, "extrapolation": extrapolation}
     report = Path("reports")
     save_record(report, "Stage 3 — XML cleaning and measured scaling extrapolation", result, {
-        "1. Actual XML export and cleaning audit": card,
-        "2. Fifteen independently trained pilots": [
+        "1. XML export and cleaning summary": card,
+        "2. Fifteen model-size training runs": [
             {key: run[key] for key in ("width", "seed", "parameters", "tokens_seen", "validation_ce", "seconds")}
             for run in runs
         ],

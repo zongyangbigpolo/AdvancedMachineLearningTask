@@ -184,7 +184,7 @@ def main() -> None:
     }
     save_record(Path("reports"), "Stage 4 — same-base SFT / DPO / RLVR measurements", result, {
         "1. Fixed task, data split and starting model": {key: value for key, value in result.items() if key not in ("runs", "comparison")},
-        "2. Actual three-seed comparison and training costs": comparison,
+        "2. Three-seed comparison and training costs": comparison,
         "3. Held-out answers (seed 42, including errors)": {
             run["method"]: run["test"] for run in runs if run["seed"] == 42
         },
