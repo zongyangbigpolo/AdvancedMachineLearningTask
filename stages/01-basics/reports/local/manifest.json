@@ -1,0 +1,43 @@
+{
+  "config": {
+    "model": {
+      "vocab_size": 8192,
+      "context_length": 128,
+      "d_model": 768,
+      "n_layers": 12,
+      "n_heads": 12,
+      "d_ff": 2304
+    },
+    "train": {
+      "steps": 1500,
+      "batch_size": 1,
+      "grad_accum": 1,
+      "learning_rate": 0.0003,
+      "min_lr_ratio": 0.1,
+      "warmup_steps": 50,
+      "weight_decay": 0.1,
+      "grad_clip": 1.0,
+      "eval_interval": 150,
+      "eval_batches": 16,
+      "seed": 42
+    }
+  },
+  "data_id": "b6162437ef707e853b21c7504e27ee2da7091280abce102456e6ab7c7a02e382",
+  "device": "mps",
+  "parameters": 98323200,
+  "python": "3.12.12",
+  "torch": "2.14.1",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "precision": "float32",
+  "cuda": null,
+  "device_name": "arm64",
+  "source_sha256": {
+    "__init__.py": "60f20f4e70b1a96aa2674c10296dcc6c12af4b718e2ad341b0084852207f0abb",
+    "data.py": "0e93164f891348b0fd3da0c8a54c721e05ede3afdb6c62494357058324231fa1",
+    "generate.py": "86905a8f56d8a70d1f295add602b6df70f8599d6371b53cc676d38b3756cf85e",
+    "model.py": "56a9c903741ab70ffd1ea84d2a79fa909ef5b9ed6b726e8879b1733ddedbf25f",
+    "tinystories.py": "5cc3d5f22e19e924808a1bf20062c1e880f444eccfc560be7812987802b867b6",
+    "tokenizer.py": "171d7c9ffda6d56092bc99f1f63ea7109e0f4967622672afeaa46f203f5f892e",
+    "train.py": "4feb457c6d254707dac3230e42e3831f15fb24a1594ae062dda9289fbcc2be6a"
+  }
+}

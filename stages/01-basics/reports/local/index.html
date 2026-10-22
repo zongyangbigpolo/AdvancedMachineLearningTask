@@ -1,0 +1,83 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Stage 1 — tokenizer, model, 98M training and generation</title><style>body{font:16px/1.5 system-ui;background:#edf1f5;color:#182336;margin:0}main{max-width:1080px;margin:24px auto}section,header{background:white;padding:24px;margin:18px 0;border-radius:10px}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.5 monospace;background:#142338;color:#e8eef5;padding:20px}h1,h2{margin-top:0}</style><main><header><h1>Stage 1 — tokenizer, model, 98M training and generation</h1><p>Actual saved experimental records. Post-run viewer, not a live terminal.</p><pre>/Users/polo2/srccode/copilot-worktrees/AdvancedMachineLearningTask/polo-li-citrix-expert-dollop/stages/01-basics/scripts/inspect_pipeline.py</pre><a href="results.json">Machine-readable results</a></header><section id="curve"><h2>Measured validation loss</h2><img src="loss.svg" alt="Validation loss from saved metrics" style="width:100%"></section><section id="part0"><h2>1. Tokenization on held-out stories</h2><pre>{
+  &quot;validation_characters&quot;: 89501,
+  &quot;validation_bytes&quot;: 89501,
+  &quot;character_tokens&quot;: 89501,
+  &quot;word_tokens_including_whitespace&quot;: 35330,
+  &quot;word_unknown_pieces&quot;: 982,
+  &quot;byte_bpe_tokens&quot;: 39574,
+  &quot;byte_bpe_actual_vocabulary&quot;: 5696,
+  &quot;note&quot;: &quot;Sequence-length comparison, not a comparison of LM losses.&quot;,
+  &quot;round_trip&quot;: {
+    &quot;text&quot;: &quot;The cat reads a book. 小猫在看书。&quot;,
+    &quot;ids&quot;: [
+      280,
+      32,
+      750,
+      32,
+      1273,
+      115,
+      32,
+      97,
+      32,
+      1751,
+      46,
+      32,
+      229,
+      176,
+      143,
+      231,
+      140,
+      171,
+      229,
+      156,
+      168,
+      231,
+      156,
+      139,
+      228,
+      185,
+      166,
+      227,
+      128,
+      130
+    ],
+    &quot;decoded&quot;: &quot;The cat reads a book. 小猫在看书。&quot;
+  }
+}</pre></section><section id="part1"><h2>2. Model and training measurements</h2><pre>{
+  &quot;parameters&quot;: 98323200,
+  &quot;updates&quot;: 1500,
+  &quot;training_tokens&quot;: 192000,
+  &quot;initial_validation_ce&quot;: 8.9119194149971,
+  &quot;final_validation_ce&quot;: 2.7502592504024506,
+  &quot;evaluation_positions&quot;: 2048,
+  &quot;training_step_seconds&quot;: 495.4537781693507,
+  &quot;checkpoint_sha256&quot;: &quot;bab49b21038114299afcba04f379fc1ba01e96f8ae5efec54c6cef8833874d99&quot;,
+  &quot;checkpoint_bytes&quot;: 1179993099
+}</pre></section><section id="part2"><h2>3. Actual greedy completions</h2><pre>{
+  &quot;Once upon a time&quot;: &quot;Once upon a time, there was a little girl named who was a little girl named Tim was a little girl named Tim was a little girl named Tim was a big named . She &quot;,
+  &quot;The little girl&quot;: &quot;The little girl was very excited and he had a big tree. The little girl was so excited and he had a big tree. The little girl was so excited and he had a&quot;,
+  &quot;A dog&quot;: &quot;A dog and said, \&quot;I can be be be be be be be a big time. The little girl was so excited and said, \&quot;I can be be a big time &quot;
+}</pre></section><section id="part3"><h2>4. Actual component-test output</h2><pre>/Users/polo2/srccode/copilot-worktrees/AdvancedMachineLearningTask/polo-li-citrix-expert-dollop/stages/01-basics/.venv/lib/python3.12/site-packages/torch/_subclasses/functional_tensor.py:368: UserWarning: Failed to initialize NumPy: No module named &#x27;numpy&#x27; (Triggered internally at /Users/runner/work/pytorch/pytorch/torch/csrc/utils/tensor_numpy.cpp:84.)
+  cpu = _conversion_method_template(device=torch.device(&quot;cpu&quot;))
+test_100m_parameter_count (test_basics.ModelTests.test_100m_parameter_count) ... ok
+test_attention_matches_torch_oracle (test_basics.ModelTests.test_attention_matches_torch_oracle) ... ok
+test_causality_and_gradients (test_basics.ModelTests.test_causality_and_gradients) ... ok
+test_cross_entropy_matches_oracle (test_basics.ModelTests.test_cross_entropy_matches_oracle) ... ok
+test_overfit_fixed_batch (test_basics.ModelTests.test_overfit_fixed_batch) ... ok
+test_determinism_and_serialization (test_basics.TokenizerTests.test_determinism_and_serialization) ... ok
+test_nonoverlapping_merge (test_basics.TokenizerTests.test_nonoverlapping_merge) ... ok
+test_round_trip_and_eos (test_basics.TokenizerTests.test_round_trip_and_eos) ... ok
+test_data_shift_and_integrity (test_basics.TrainingTests.test_data_shift_and_integrity) ... ok
+test_resume_exactly_matches_uninterrupted_cpu (test_basics.TrainingTests.test_resume_exactly_matches_uninterrupted_cpu) ... ok
+test_schedule_and_invalid_config (test_basics.TrainingTests.test_schedule_and_invalid_config) ... ok
+test_download_validation (test_stage1.Stage1Tests.test_download_validation) ... ok
+test_generation_limit_eos_and_invalid_temperature (test_stage1.Stage1Tests.test_generation_limit_eos_and_invalid_temperature) ... ok
+test_rope_rotation_and_rmsnorm (test_stage1.Stage1Tests.test_rope_rotation_and_rmsnorm) ... ok
+test_subset_overlap_budget_and_provenance (test_stage1.Stage1Tests.test_subset_overlap_budget_and_provenance) ... ok
+test_walkthrough_covers_each_nonempty_source_line (test_stage1.Stage1Tests.test_walkthrough_covers_each_nonempty_source_line) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 1.016s
+
+OK
+</pre></section></main></html>

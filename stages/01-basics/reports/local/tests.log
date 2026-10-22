@@ -1,0 +1,23 @@
+/Users/polo2/srccode/copilot-worktrees/AdvancedMachineLearningTask/polo-li-citrix-expert-dollop/stages/01-basics/.venv/lib/python3.12/site-packages/torch/_subclasses/functional_tensor.py:368: UserWarning: Failed to initialize NumPy: No module named 'numpy' (Triggered internally at /Users/runner/work/pytorch/pytorch/torch/csrc/utils/tensor_numpy.cpp:84.)
+  cpu = _conversion_method_template(device=torch.device("cpu"))
+test_100m_parameter_count (test_basics.ModelTests.test_100m_parameter_count) ... ok
+test_attention_matches_torch_oracle (test_basics.ModelTests.test_attention_matches_torch_oracle) ... ok
+test_causality_and_gradients (test_basics.ModelTests.test_causality_and_gradients) ... ok
+test_cross_entropy_matches_oracle (test_basics.ModelTests.test_cross_entropy_matches_oracle) ... ok
+test_overfit_fixed_batch (test_basics.ModelTests.test_overfit_fixed_batch) ... ok
+test_determinism_and_serialization (test_basics.TokenizerTests.test_determinism_and_serialization) ... ok
+test_nonoverlapping_merge (test_basics.TokenizerTests.test_nonoverlapping_merge) ... ok
+test_round_trip_and_eos (test_basics.TokenizerTests.test_round_trip_and_eos) ... ok
+test_data_shift_and_integrity (test_basics.TrainingTests.test_data_shift_and_integrity) ... ok
+test_resume_exactly_matches_uninterrupted_cpu (test_basics.TrainingTests.test_resume_exactly_matches_uninterrupted_cpu) ... ok
+test_schedule_and_invalid_config (test_basics.TrainingTests.test_schedule_and_invalid_config) ... ok
+test_download_validation (test_stage1.Stage1Tests.test_download_validation) ... ok
+test_generation_limit_eos_and_invalid_temperature (test_stage1.Stage1Tests.test_generation_limit_eos_and_invalid_temperature) ... ok
+test_rope_rotation_and_rmsnorm (test_stage1.Stage1Tests.test_rope_rotation_and_rmsnorm) ... ok
+test_subset_overlap_budget_and_provenance (test_stage1.Stage1Tests.test_subset_overlap_budget_and_provenance) ... ok
+test_walkthrough_covers_each_nonempty_source_line (test_stage1.Stage1Tests.test_walkthrough_covers_each_nonempty_source_line) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 1.016s
+
+OK

@@ -1,58 +1,24 @@
-# 从零做一个语言模型，再把它变成能完成任务的智能体
+# 高级机器学习实验作业
 
-**先只读下面五篇阶段 README，不需要翻其他目录。** 每篇都按同一顺序说明：任务是什么、名词是什么意思、先做什么后做什么、为什么这样做、结果怎样。
+按五个阶段保存实现、实验记录和截图。每个阶段的 README 是任务清单与实验报告，代码和产物都放在对应目录。
 
-整份作业可以理解成五个连续问题：
-
-```text
-① 能不能自己造出一个会接着写字的模型？
-                   ↓ 得到模型和训练方法
-② 能不能让同一个模型算得更快、用得起？
-                   ↓ 得到更有效率的实验工具
-③ 应该给它读什么、读多少、模型做多大？
-                   ↓ 得到数据与规模的实验依据
-④ 怎么让它从“会续写”变成“按要求答题”？
-                   ↓ 得到经过任务训练的模型
-⑤ 怎么让它调用工具、检查结果、连续完成任务？
-```
-
-| 按顺序读 | 这一阶段交什么 | 现在做到哪 |
+| 阶段 | 任务 | 已提交记录 |
 | --- | --- | --- |
-| **[第一阶段：从文本到模型](stages/01-basics/README.md)** | 自己写分词器和模型，并训练约一亿参数的模型 | 代码与小预算真实训练已做；充分预训练未完成 |
-| [第二阶段：让模型跑得更快](stages/02-systems/README.md) | 手写 GPU 计算内核，实测多卡训练和生成 | 尚未开始 |
-| [第三阶段：把数据和规模选对](stages/03-data-scaling/README.md) | 清洗原始数据，用实验预测更大模型的表现 | 尚未开始 |
-| [第四阶段：让模型学会按要求完成任务](stages/04-alignment/README.md) | 在相同起点比较三种训练方法 | 尚未开始 |
-| [第五阶段：让模型连续行动并验证结果](stages/05-agents/README.md) | 可验证任务环境、工具运行框架和长程任务实验 | 尚未开始 |
+| [01 基础](stages/01-basics/README.md) | 手写分词器和 Transformer，训练约一亿参数模型 | 98M 模型 1,500 步、分词对照、生成、五张截图、数据包及权重下载 |
+| [02 系统](stages/02-systems/README.md) | 注意力内核、多卡、训练与推理性能 | 待提交 |
+| [03 数据与规模](stages/03-data-scaling/README.md) | 原始数据清洗、规模实验、拟合与外推 | 待提交 |
+| [04 对齐](stages/04-alignment/README.md) | 同一基座的 SFT、DPO、RLVR 对照 | 待提交 |
+| [05 智能体](stages/05-agents/README.md) | 可验证环境、运行框架、长程训练与自评循环 | 待提交 |
 
-最终把这些实验的问题、动机、方法和结果整理成 **NeurIPS 格式英文报告**，并现场演示。NeurIPS 是机器学习学术会议，这里指使用要求的论文排版，不代表投稿或录用。
+本次使用本机 Apple M4，不租 GPU。Triton 和多 GPU 实测保留为待补项，其余项目以各阶段实际记录为准。每阶段整理完单独提交并 push 到 `main`。
 
-## 你现在从哪里开始
+运行前先进入对应阶段目录。第一阶段安装依赖，后续阶段复用该 Python 环境：
 
-打开 **[第一阶段 README](stages/01-basics/README.md)** 就够了：概念、实际执行顺序、为什么选这套方案、训练效果、截图和运行命令都放在一篇里。**只按阶段组织，不设每周任务或七天期限。**
-
-目前真正完成的是：在本机 Mac 上，把一个 **98,323,200 参数**的模型训练了 **100 步**，跑通读取数据、更新模型、中断恢复和生成文字。**生成还会重复，不是已经训练好了一个能用的聊天模型。**
-
-## 所有材料都在对应阶段里
-
-```text
-README.md                     总导航
-stages/
-  01-basics/
-    README.md                 第一阶段的完整讲解，从这里读
-    aml/                      本阶段代码
-    configs/                  本阶段配置
-    examples/                 本阶段调试文本
-    tests/                    本阶段自动检查
-    docs/                     本阶段可选代码附录与参考资料
-    reports/                  本阶段实验结果、截图、原始命令
-    scripts/                  本阶段证据核验工具
-    pyproject.toml、uv.lock    本阶段依赖
-  02-systems/README.md         第二阶段讲解；后续代码和证据也放这里
-  03-data-scaling/README.md    第三阶段讲解
-  04-alignment/README.md       第四阶段讲解
-  05-agents/README.md          第五阶段讲解与最终交付要求
+```bash
+cd stages/01-basics
+uv sync --locked --python 3.12
 ```
 
-每个阶段的 README 是唯一学习入口，其余文件都是这篇文档的附件，不是另外一条学习路线。运行命令前，先进入对应阶段目录；第一阶段就是 `cd stages/01-basics`。本地数据和权重也在该阶段的 `data/`、`runs/`，不提交 Git。
+小数据包和小模型随阶段保存；超过 Git 文件限制的大模型放同仓库 [Releases](https://github.com/zongyangbigpolo/AdvancedMachineLearningTask/releases)。下载命令与摘要见对应阶段 README。
 
-课程背景来自你提供的要求；公开参考项目与课程来源的查证范围另见第一阶段的[参考资料](stages/01-basics/docs/references.md)，不把个人整理当作官方验收标准。
+最终交付为 NeurIPS（Neural Information Processing Systems）格式英文报告和现场 Demo（Demonstration，演示）。[公开参考与对照记录](stages/01-basics/docs/references.md)区分了第三方结果和本仓库实际测量。

@@ -40,3 +40,20 @@ CS336 官方教学路线与前四类要求高度重合，但这是相关参考�
 先读概念与测试约束，自己写组件，再用第三方项目解释取舍；本仓库没有复制上述项目源码。阅读或复用第三方实现必须遵循其许可证并注明来源。若用于正式课程提交，应先确认所在课程的 AI / 合作规范；CS336 官方明确限制直接用 AI 生成作业解答，因此本仓库应视作独立学习实验，不能宣称是可直接提交的官方课程答案。
 
 本仓库的实现顺序是“正确性基线 → 小模型闭环 → 0.1B 实验 → 性能 → 数据与规模 → 对齐 → Agent”。不同 tokenizer 下的 token-level loss 不宜直接比较；排行榜数字也不能当成本项目已经取得的结果。
+
+## 2026-10-22 的阶段实验对照
+
+再次读取 `from-token-to-agent` 的英文 README、完整目录树，以及 RLVR / Harness 入口；固定版本仍为 `ca6f58686f9a42bcf45be313c41595a0934e914a`。该版本后两者仍是说明性入口，README 也将后训练和最终项目列为未开始，因此没有把它当成已完成全套作业的答案。
+
+这次参考它的字符 / 单词 / BPE 序列对照、固定数据量的规模实验和留出最大模型的做法；本仓库自行实现并实跑，不复制其训练代码或实验数字。第一阶段新结果为 98M 参数、1,500 步、192,000 token，验证 CE 从 8.9119 到 2.7503；原 100 步证据保持原样。
+
+后续方法的资料入口：
+
+| 实验 | 方法依据 |
+| --- | --- |
+| 手写缓存与注意力核对 | [CS336 Systems](https://github.com/stanford-cs336/assignment2-systems)、[PyTorch SDPA 文档](https://pytorch.org/docs/stable/generated/torch.nn.functional.scaled_dot_product_attention.html) |
+| 固定 token 预算的模型规模拟合 | [CS336 Scaling](https://github.com/stanford-cs336/assignment3-scaling)、[Scaling Laws for Neural Language Models](https://arxiv.org/abs/2001.08361)；不声称复现完整 Chinchilla 数据 / 计算联合拟合 |
+| 偏好与可验证奖励训练 | [CS336 Alignment](https://github.com/stanford-cs336/assignment5-alignment)、[Direct Preference Optimization](https://arxiv.org/abs/2305.18290) |
+| 策略梯度 | Williams, 1992, [Simple statistical gradient-following algorithms for connectionist reinforcement learning](https://doi.org/10.1007/BF00992696)；用外部结果奖励，不把监督答案损失改名为 RL |
+
+实验规模、候选输出约束、计时范围、数据划分和未覆盖硬件均在各阶段 README 及机器可读记录中写明。
