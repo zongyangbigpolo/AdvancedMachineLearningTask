@@ -1,0 +1,149 @@
+{
+  "command": "experiment.py --device mps",
+  "python": "3.12.12",
+  "torch": "2.14.1",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "device": "mps",
+  "precision": "float32",
+  "model": {
+    "vocab_size": 512,
+    "context_length": 128,
+    "d_model": 64,
+    "n_layers": 2,
+    "n_heads": 4,
+    "d_ff": 192
+  },
+  "attention": [
+    {
+      "length": 64,
+      "forward_max_abs_error": 0.0,
+      "backward_max_abs_error": 0.0,
+      "reference_forward_backward": {
+        "median_ms": 1.0328751523047686,
+        "min_ms": 0.8088750764727592,
+        "max_ms": 1.096791122108698,
+        "repeats": 7,
+        "warmups": 2
+      },
+      "torch_sdpa_forward_backward": {
+        "median_ms": 0.9402921423316002,
+        "min_ms": 0.8867920842021704,
+        "max_ms": 1.4095001388341188,
+        "repeats": 7,
+        "warmups": 2
+      },
+      "speedup": 1.0984619628359271
+    },
+    {
+      "length": 128,
+      "forward_max_abs_error": 0.0,
+      "backward_max_abs_error": 0.0,
+      "reference_forward_backward": {
+        "median_ms": 1.1377918999642134,
+        "min_ms": 0.850791810080409,
+        "max_ms": 1.254166942089796,
+        "repeats": 7,
+        "warmups": 2
+      },
+      "torch_sdpa_forward_backward": {
+        "median_ms": 1.112000085413456,
+        "min_ms": 0.9868750348687172,
+        "max_ms": 1.3004159554839134,
+        "repeats": 7,
+        "warmups": 2
+      },
+      "speedup": 1.0231940760518625
+    },
+    {
+      "length": 256,
+      "forward_max_abs_error": 0.0,
+      "backward_max_abs_error": 0.0,
+      "reference_forward_backward": {
+        "median_ms": 1.1285839136689901,
+        "min_ms": 0.9969579987227917,
+        "max_ms": 1.436375081539154,
+        "repeats": 7,
+        "warmups": 2
+      },
+      "torch_sdpa_forward_backward": {
+        "median_ms": 1.1071250773966312,
+        "min_ms": 1.0687089525163174,
+        "max_ms": 1.4225421473383904,
+        "repeats": 7,
+        "warmups": 2
+      },
+      "speedup": 1.0193824859633915
+    }
+  ],
+  "generation": [
+    {
+      "prefix_tokens": 32,
+      "new_tokens": 16,
+      "identical_output": true,
+      "uncached": {
+        "median_ms": 107.46912495233119,
+        "min_ms": 103.93979214131832,
+        "max_ms": 111.4183331374079,
+        "repeats": 5,
+        "warmups": 2
+      },
+      "cached": {
+        "median_ms": 98.35774987004697,
+        "min_ms": 96.68620792217553,
+        "max_ms": 101.22279194183648,
+        "repeats": 5,
+        "warmups": 2
+      },
+      "cache_bytes": 48128,
+      "speedup": 1.0926350500527149
+    },
+    {
+      "prefix_tokens": 32,
+      "new_tokens": 32,
+      "identical_output": true,
+      "uncached": {
+        "median_ms": 209.51145817525685,
+        "min_ms": 207.68129196949303,
+        "max_ms": 222.21333300694823,
+        "repeats": 5,
+        "warmups": 2
+      },
+      "cached": {
+        "median_ms": 190.20591699518263,
+        "min_ms": 186.81912519969046,
+        "max_ms": 204.97729210183024,
+        "repeats": 5,
+        "warmups": 2
+      },
+      "cache_bytes": 64512,
+      "speedup": 1.1014981104954962
+    },
+    {
+      "prefix_tokens": 32,
+      "new_tokens": 64,
+      "identical_output": true,
+      "uncached": {
+        "median_ms": 431.4053750131279,
+        "min_ms": 421.75520793534815,
+        "max_ms": 449.30412503890693,
+        "repeats": 5,
+        "warmups": 2
+      },
+      "cached": {
+        "median_ms": 390.20308293402195,
+        "min_ms": 377.91679217480123,
+        "max_ms": 394.2505419254303,
+        "repeats": 5,
+        "warmups": 2
+      },
+      "cache_bytes": 97280,
+      "speedup": 1.105591918365424
+    }
+  ],
+  "hardware_blocked": {
+    "triton": "No compatible Triton GPU on current Mac",
+    "multi_gpu_training": "Only one Apple GPU; no multi-GPU measurement",
+    "multi_gpu_inference": "Only one Apple GPU; no multi-GPU measurement"
+  },
+  "protocol": "Isolated synchronized wall-clock timing, warmups excluded, medians and full ranges"
+}

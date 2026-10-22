@@ -21,11 +21,20 @@ def save_record(directory: Path, title: str, result: dict, sections: dict[str, o
     (directory / "results.json").write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n")
     blocks = []
     for index, (heading, data) in enumerate(sections.items()):
-        text = data if isinstance(data, str) else json.dumps(data, indent=2, ensure_ascii=False)
-        blocks.append(
-            f'<section id="part{index}"><h2>{html.escape(heading)}</h2>'
-            f'<pre>{html.escape(text)}</pre></section>'
-        )
+        if isinstance(data, list) and data and all(isinstance(row, dict) for row in data):
+            columns = list(data[0])
+            cells = []
+            for row in data:
+                cells.append("<tr>" + "".join(
+                    f"<td>{html.escape(str(row.get(column, '')))}</td>" for column in columns
+                ) + "</tr>")
+            content = ("<table><thead><tr>" +
+                       "".join(f"<th>{html.escape(column)}</th>" for column in columns) +
+                       "</tr></thead><tbody>" + "".join(cells) + "</tbody></table>")
+        else:
+            text = data if isinstance(data, str) else json.dumps(data, indent=2, ensure_ascii=False)
+            content = f"<pre>{html.escape(text)}</pre>"
+        blocks.append(f'<section id="part{index}"><h2>{html.escape(heading)}</h2>{content}</section>')
     page = (
         '<!doctype html><html lang="en"><meta charset="utf-8">'
         f"<title>{html.escape(title)}</title>"
@@ -33,7 +42,9 @@ def save_record(directory: Path, title: str, result: dict, sections: dict[str, o
         "main{max-width:1080px;margin:24px auto}section,header{background:white;padding:24px;"
         "margin:18px 0;border-radius:10px}pre{white-space:pre-wrap;overflow-wrap:anywhere;"
         "font:14px/1.5 monospace;background:#142338;color:#e8eef5;padding:20px}"
-        "h1,h2{margin-top:0}</style><main><header>"
+        "h1,h2{margin-top:0}table{border-collapse:collapse;width:100%;font-size:13px}"
+        "th,td{border:1px solid #cbd5e1;padding:8px;text-align:left;overflow-wrap:anywhere}"
+        "th{background:#e8eef5}</style><main><header>"
         f"<h1>{html.escape(title)}</h1>"
         "<p>Actual saved experimental records. Post-run viewer, not a live terminal.</p>"
         f"<pre>{html.escape(record['command'])}</pre>"
