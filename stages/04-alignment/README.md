@@ -4,7 +4,7 @@
 
 ## 任务清单
 
-- [x] 冻结同一份模型和分词器，记录共同起点的文件摘要。
+- [x] 固定共同基座和分词器，记录起点的文件摘要。
 - [x] 生成训练 / 测试不重叠的可验证任务。
 - [x] 实现并训练 SFT、DPO、RLVR 三个分支，每个分支跑 3 个种子。
 - [x] 统一测试，记录正确率、训练时间、采样量和错误样例。
@@ -35,7 +35,7 @@
 | RL — Reinforcement Learning，强化学习 | 通过行动结果的奖励调整策略。 |
 | RLOO — REINFORCE Leave-One-Out | 一个答案的基线是同组其余 7 个答案的平均奖励，自己的奖励不进入自己的基线。 |
 | KL — Kullback–Leibler Divergence，相对熵 | RLVR 额外约束策略偏离初始模型的程度，系数 0.02。 |
-| Verifier，验证器 | `answer == max(a,b)`，训练奖励和测试验收都能复查。 |
+| Verifier，验证器 | 用 `answer == max(a,b)` 计算训练奖励和测试正确率。 |
 
 [experiment.py](experiment.py)包含三个训练分支。[测试](test_experiment.py)检查训练 / 测试划分、偏好损失方向、同策略起点的 `log(2)` 损失，以及 leave-one-out 是否排除当前奖励。
 
@@ -56,7 +56,7 @@
 | DPO | 95% | 90% | 85% | **90%** | 3.599 秒 |
 | RLVR | 85% | 85% | 85% | **85%** | 3.418 秒 |
 
-每个 RLVR 种子实际采样 **64,000 个答案**。因此这里等的是更新步数与题目数，不是严格相同的计算成本。耗时包含各自训练循环中的参考模型计算和采样，不含加载、初始评估、最终评估或存盘。
+每个 RLVR 种子采样 **64,000 个答案**。实验固定更新步数与题目呈现数，各方法的采样和参考模型计算成本不同。耗时包含训练循环中的参考模型计算和采样，不含加载、初始评估、最终评估或存盘。
 
 逐种子记录、测试答案和错误见 [results.json](reports/results.json)。
 
@@ -64,13 +64,13 @@
 
 ## 复盘
 
-这组任务中 SFT 和 DPO 平均相同，RLVR 没有胜过它们。三种信号都比初始模型更适合当前任务，但奖励训练并不会因为名字不同就天然更强。
+SFT 和 DPO 的平均正确率相同，RLVR 低 5 个百分点；三种方法均高于初始基座的 5%。在该任务与固定更新预算下，RLVR 的额外采样没有带来更高的测试正确率。
 
-这次固定随机划分把唯一答案为 0 的题 `max(0,0)` 留到了测试集，训练答案没有覆盖 0。三个分支都在这题失败，是成绩中的一个共同数据因素，不全是优化算法差别。
+固定随机划分将唯一答案为 0 的题 `max(0,0)` 留在测试集，训练正例没有覆盖答案 0。三个分支均在该题失败，体现了训练标签覆盖不足的影响。
 
-测试只有 20 道数字题；采用固定候选、单 token 回答，没有测自由文本推理或多步算术。结果回答的是这个实验问题，不用于给通用语言模型能力排名。
+测试集包含 20 道数字题，采用固定候选和单 token 回答。样本量与任务范围限制了方法比较的精度；自由文本推理和多步算术尚未评估。
 
-## 实际命令、数据和权重
+## 复现命令、数据和权重
 
 先在第三阶段解压数据与模型包，再运行：
 
@@ -82,11 +82,11 @@ mkdir -p runs
 ../01-basics/.venv/bin/python ../01-basics/scripts/render_reports.py --stage 04-alignment
 ```
 
-[alignment-models.zip](artifacts/alignment-models.zip)包含 9 个分支权重、分词器和实际题目划分。解压即可加载；`SHA256.json` 可核对每个文件。
+[alignment-models.zip](artifacts/alignment-models.zip)包含 9 个分支权重、分词器和题目划分；`SHA256.json` 记录各文件摘要。
 
 ```bash
 unzip -n artifacts/alignment-models.zip
-# 想重训时使用新目录，不覆盖已有分支
+# 使用独立目录重训
 ../01-basics/.venv/bin/python experiment.py --steps 250 --output runs/alignment-repeat
 ```
 
@@ -96,12 +96,12 @@ unzip -n artifacts/alignment-models.zip
 
 **同基座、三种子成绩与成本**
 
-![三种方法实际对照](reports/comparison.png)
+![三种方法对照](reports/comparison.png)
 
-**各分支实际输出，保留错误**
+**各分支输出与错误样例**
 
 ![对齐测试题样例](reports/answers.png)
 
-**实际目标函数与约束**
+**目标函数与约束**
 
 ![三种学习信号](reports/objectives.png)

@@ -1,6 +1,6 @@
 # 自回归生成逐行讲解
 
-源码：[aml/generate.py](../../aml/generate.py)。训练并行计算各位置 loss，生成则每次只消费最后位置 logits。当前每 token 重算整个最近窗口，故意没有 KV cache。
+源码：[aml/generate.py](../../aml/generate.py)。训练并行计算各位置 loss，生成则每次只消费最后位置 logits。该参考实现不使用缓存，每个新 token 重算最近上下文窗口。
 
 | 源码行 | 含义 |
 | --- | --- |

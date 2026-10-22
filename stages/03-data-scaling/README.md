@@ -9,13 +9,13 @@
 - [x] 按文章划分训练和验证，只在训练集学习分词规则。
 - [x] 训练 5 个模型规模，每个规模使用 3 个随机种子。
 - [x] 用前 4 个规模拟合，先预测第 5 个规模，再对照实测。
-- [x] 上传原始快照、清洗数据、小模型权重、数据卡和截图。
+- [x] 记录数据卡、训练结果与外推误差，保存对应模型和截图。
 
 ## 问题与方法
 
-这次检查两件事：原始网页标记能不能变成模型可读的语料；在相同训练 token 预算下，较小模型的结果能否预测较大模型。
+实验研究两个问题：如何将网页标记文本清洗为训练语料，以及在相同训练 token 预算下如何根据较小模型预测较大模型的验证损失。
 
-| 名词与英文全称 | 这次的处理 |
+| 名词与英文全称 | 实现方法 |
 | --- | --- |
 | Dump，数据转储 | 本实验使用 Simple English Wikipedia 的 16 篇指定文章原始 XML 导出。 |
 | XML — Extensible Markup Language | 导出里包着标题、修订版本、正文和站点信息；先解析结构，再处理正文。 |
@@ -28,7 +28,7 @@
 | CPU — Central Processing Unit | 本次 15 个规模实验用 CPU 单线程运行。 |
 | CE — Cross-Entropy | 固定分词器、验证窗口后的交叉熵，单位为 nats/token。 |
 
-实现集中在 [experiment.py](experiment.py)。下载后保留原始 XML，去掉嵌套模板、引用、链接和部分表格；不平衡模板记录为明确删除原因，不静默吞掉。近似去重在划分前完成，随后按文章分组，训练和验证不交叉。
+实现见 [experiment.py](experiment.py)。保留原始 XML，去掉嵌套模板、引用、链接和部分表格，将模板不平衡记为删除原因。近似去重在划分前完成，随后按文章分组，训练和验证不交叉。
 
 集合较小，去重使用两两比较；规模扩大后，这一步的二次复杂度会成为性能瓶颈。
 
@@ -72,9 +72,9 @@ L(N) = 3.328899 + 1.077007 × (N / 43168)^(-0.33)
 
 固定数据量下，较大模型的验证损失更低。模型均训练 100 步，拟合描述的是该预算与参数范围内的局部关系；数据量、计算量和收敛后损失尚未作为独立维度展开。留出误差为 0.86%，后续更远范围的外推需要增加检验点。
 
-最大规模的种子 42 权重作为第四阶段共同起点；后续三种方法不各选不同的最好模型。
+最大规模的种子 42 权重作为第四阶段三种方法的共同起点，保持初始化条件一致。
 
-## 实际命令与数据
+## 复现命令与数据
 
 ```bash
 cd stages/03-data-scaling
@@ -86,7 +86,7 @@ mkdir -p runs
 
 模型输出目录非空时会拒绝覆盖。
 
-[data-and-models.zip](artifacts/data-and-models.zip)包含本次原始 XML、清洗文本、token 文件、分词器和全部 15 个小模型，以及同内容的 `holdout.pt`。展开后可直接查看或加载，不必重新下载实时变化的文章。许可和修改说明见 [DATA_NOTICE.txt](artifacts/DATA_NOTICE.txt)。
+[data-and-models.zip](artifacts/data-and-models.zip)包含原始 XML、清洗文本、token 文件、分词器和 15 个小模型，以及与最大规模种子 42 模型相同的 `holdout.pt`。使用该快照复现可固定文章版本。许可和修改说明见 [DATA_NOTICE.txt](artifacts/DATA_NOTICE.txt)。
 
 ```bash
 unzip -n artifacts/data-and-models.zip
@@ -97,13 +97,13 @@ unzip -n artifacts/data-and-models.zip
 
 ## 实验截图
 
-完整原始数字见 [results.json](reports/results.json)，截图来自它的[记录页面](reports/index.html)。
+数值结果见 [results.json](reports/results.json)，可视化见[记录页面](reports/index.html)。
 
 **原始导出与清洗数量**
 
 ![清洗审计](reports/cleaning.png)
 
-**15 次实际训练**
+**15 次训练**
 
 ![模型规模实验](reports/scaling.png)
 

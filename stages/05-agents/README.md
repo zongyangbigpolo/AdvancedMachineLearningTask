@@ -6,9 +6,9 @@
 
 - [x] 写可重置环境、三个工具、明确成功条件与失败条件。
 - [x] 写 Harness，限制工具、步数和整数范围，保存完整任务轨迹。
-- [x] 用验证过的轨迹训练神经网络策略，再用实际环境奖励更新。
+- [x] 用成功轨迹训练神经网络策略，再用环境奖励更新。
 - [x] 测试 1、4、8、16 个连续目标，分别比较训练前后与 self-judge。
-- [x] 保存策略权重、示范数据、实际轨迹、截图与可重放 Demo。
+- [x] 保存策略权重、示范数据、任务轨迹、截图与运行演示。
 - [x] 整理五阶段英文报告，使用官方 NeurIPS 2026 模板。
 
 ## 任务环境
@@ -45,16 +45,16 @@
 
 ## 训练记录
 
-| 项目 | 实际设置 |
+| 项目 | 设置 |
 | --- | --- |
 | 起点 | 第四阶段 SFT、种子 42 的 289,248 参数模型 |
 | 示范 | 从 1、2、4、8 目标的已验证轨迹得到 10,556 条普通 / 复查训练记录 |
 | 轨迹 SFT | 300 次更新，每批 32 条 |
-| 环境奖励训练 | 24 个实际采样 episode，逐渐增加到 3 个目标 |
+| 环境奖励训练 | 24 个采样 episode，逐渐增加到 3 个目标 |
 | 奖励 | 终局外部验证成功为 1，否则 0；基线 0.5，熵系数 0.001 |
 | 测试 | 每个目标长度 12 个新种子任务，最多 128 次工具动作 |
 
-所有 24 个奖励训练 episode 都已成功。也就是说，这次主要收益来自轨迹监督；不能把最终成功率全归给后面的 RL。
+轨迹监督后，策略已在全部测试任务上成功；随后 24 个奖励训练 episode 的奖励均为 1，测试成功率保持不变。
 
 复查提示属于监督训练样本。测试使用新的目标序列，数字状态和工具范围与训练一致。
 
@@ -75,7 +75,7 @@
 
 普通任务全部成功，自评没有继续提高成功率，但增加了计算。10% 草稿随机扰动下，自评提高了成功率；该压力测试与普通任务分开统计。
 
-## 一条实际轨迹
+## 任务轨迹
 
 保存的 8 目标评估任务用 32 次动作完成：
 
@@ -86,13 +86,13 @@
 外部验证： true
 ```
 
-完整记录见 [traces.json](reports/traces.json)，包含失败策略和扰动对照，不只保存这一条成功轨迹。
+各策略及扰动条件下的任务轨迹见 [traces.json](reports/traces.json)。
 
 ## 复盘
 
 有限状态控制器在新目标序列上完成了长动作链。轨迹监督贡献了主要收益，奖励训练后的成功率保持不变。复查提示的额外计算在扰动条件下有效，但也可能只是重复应用状态到动作的映射；复杂规划和新工具迁移仍需额外任务评估。
 
-## 实际命令与已上传产物
+## 复现命令与模型
 
 第四阶段模型包解压后：
 
@@ -105,14 +105,14 @@ mkdir -p runs
 ../01-basics/.venv/bin/python ../01-basics/scripts/render_reports.py --stage 05-agents
 ```
 
-[agent-artifacts.zip](artifacts/agent-artifacts.zip)保存示范、分词器、SFT 权重、最终策略权重与实际轨迹。查看用的模型和数据不用重训：
+[agent-artifacts.zip](artifacts/agent-artifacts.zip)包含示范、分词器、SFT 权重、最终策略权重与任务轨迹。加载已有策略：
 
 ```bash
 unzip -n artifacts/agent-artifacts.zip
 ../01-basics/.venv/bin/python demo.py --self-judge
 ```
 
-这条新 Demo 实际执行了 **36 步、72 次模型调用**，最终通过外部验证；[demo.jsonl](reports/demo.jsonl)保留了本次输出。它的初始账本与上面的 32 步评估任务不同。
+演示执行 **36 步、72 次模型调用**，最终状态通过验证器检查。初始账本与前述 32 步评估任务不同，逐步输出见 [demo.jsonl](reports/demo.jsonl)。
 
 重训可加 `--output runs/agent-repeat`，不会覆盖保存的模型。
 
@@ -120,11 +120,16 @@ unzip -n artifacts/agent-artifacts.zip
 
 [英文 PDF](report/paper.pdf) · [LaTeX 源码](report/paper.tex) · [官方模板来源](report/TEMPLATE_SOURCE.txt)
 
-报告包含问题、动机、方法、测量、失败样例和局限，使用官方 NeurIPS（Neural Information Processing Systems）2026 样式的 preprint 模式。编译需 Tectonic；进入 `report/` 后运行 `tectonic paper.tex`。
+采用 NeurIPS（Neural Information Processing Systems）2026 preprint 格式。使用 Tectonic 编译：
+
+```bash
+cd report
+tectonic paper.tex
+```
 
 ## 实验截图
 
-**实际训练预算与奖励记录**
+**训练预算与奖励记录**
 
 ![智能体训练记录](reports/training.png)
 
@@ -132,7 +137,7 @@ unzip -n artifacts/agent-artifacts.zip
 
 ![长程任务和自评对照](reports/evaluation.png)
 
-**实际执行的前后动作及验证**
+**轨迹首尾动作与终态检查**
 
 ![神经策略任务轨迹](reports/trajectory.png)
 ![重新加载权重的 Demo 验证](reports/verification.png)

@@ -36,7 +36,7 @@ no success gain in ordinary episodes, but repairs deliberately corrupted
 draft actions at twice the inference-call cost. The experiments cover
 finite task domains and short training budgets on one Apple GPU.
 Code, measurements, data snapshots, small model
-bundles, screenshots, and large-checkpoint releases accompany the report.
+bundles, screenshots, and training checkpoints accompany the report.
 \end{abstract}
 
 \section{Problem and motivation}
@@ -51,7 +51,6 @@ separate implementation speed, model-size effects, and training signals;
 and (3) can a learned policy complete dependent tool actions without using
 an answer-producing rule at inference time?
 
-The project is organized by five deliverables rather than calendar weeks.
 The public \emph{from-token-to-agent} project~\citep{referenceproject} informed the tokenizer and
 size-pilot comparisons. Stanford CS336 provides related systems, scaling,
 and alignment assignment specifications~\citep{cs336}.
@@ -311,9 +310,8 @@ benefit beyond imitation here, and no Triton or multi-GPU result.
 
 Every stage includes commands, JSON records, and experiment screenshots.
 Data bundles include attribution,
-transformations, and SHA-256 manifests. Small checkpoints are bundled
-in Git; the two roughly 1.18 GB stage-one checkpoints are uploaded to
-the same repository's GitHub Releases.
+transformations, and SHA-256 manifests. The two stage-one checkpoints
+are approximately 1.18 GB each and include optimizer and random states.
 A replay demo reloads a neural policy and checks final environment states.
 The repository is available at
 \url{https://github.com/zongyangbigpolo/AdvancedMachineLearningTask}.

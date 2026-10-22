@@ -11,7 +11,7 @@ import torch
 from aml.data import sha256
 
 
-COMMANDS = """# Experiment commands (original repository-root layout)
+COMMANDS = """mkdir -p runs # Working directory: stages/01-basics
 .venv/bin/python -m aml.tinystories --output data/week1-raw --train-rows 512 --val-rows 128 > runs/week1-data-download.log
 .venv/bin/python -m aml.tokenizer --input data/week1-raw/train.txt --output data/week1-tokenizer.json --vocab-size 8192
 .venv/bin/python -m aml.data --train data/week1-raw/train.txt --val data/week1-raw/val.txt --tokenizer data/week1-tokenizer.json --output data/week1-tokens > runs/week1-data-encode.log
@@ -20,7 +20,7 @@ COMMANDS = """# Experiment commands (original repository-root layout)
 .venv/bin/python -m aml.generate --checkpoint runs/week1-100m-mac/latest.pt --prompt 'Once upon a time' --temperature 0 --max-new-tokens 64 --device mps > runs/week1-generation.txt
 
 # Checkpoint inspection and report rendering
-.venv/bin/python -m scripts.week1_evidence > reports/week1/checkpoint-verification.log
+.venv/bin/python -m scripts.evidence > reports/checkpoint-verification.log
 """
 
 
@@ -92,13 +92,13 @@ Stopped at update 5, then resumed to update 100.</p>
 <p class="notice">Greedy completion:</p>
 <pre>{html.escape(generation)}</pre></section>
 <section id="audit"><h2>Checkpoint and optimizer inspection</h2>
-<p>Executed after training; CPU inspection of the checkpoint produced by MPS training. <a href="audit.json">Raw audit JSON</a></p>
+<p>Training backend: MPS. Checkpoint inspection: CPU. <a href="audit.json">Inspection results</a></p>
 <pre>.venv/bin/python -m scripts.evidence &gt; reports/checkpoint-verification.log</pre>
 <pre>{html.escape(json.dumps(audit, indent=2))}</pre></section>
-<section id="commands"><h2>Exact commands</h2><p>Original execution used repository-root paths and redirected stdout as shown.
+<section id="commands"><h2>Reproduction commands</h2><p>Working directory: <code>stages/01-basics</code>.
 Existing nonempty run/data directories cannot be overwritten. <a href="commands.txt">Plain text commands</a></p>
 <pre>{html.escape(COMMANDS)}</pre></section>
-<section id="logs"><h2>Original training stdout: selected checkpoints</h2>
+<section id="logs"><h2>Training log: updates 0, 5, 6 and 100</h2>
 <p>JSON log view. Complete logs:
 <a href="week1-training-first.log">updates 0–5</a> and <a href="week1-training-resume.log">updates 6–100</a>.</p>
 <pre>{html.escape(selected)}</pre></section></main></html>"""

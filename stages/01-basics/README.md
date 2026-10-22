@@ -50,7 +50,7 @@
 
 ## 实现记录
 
-| 顺序 | 实际做的事 | 对应实现 |
+| 顺序 | 实现步骤 | 对应实现 |
 | --- | --- | --- |
 | 1 | 下载 TinyStories 前 512 篇训练故事、128 篇验证故事；保留来源、许可和文件摘要 | [tinystories.py](aml/tinystories.py) |
 | 2 | 只在训练故事上统计合并规则；设置最多 8192 项，实际学到 5696 项 | [tokenizer.py](aml/tokenizer.py) |
@@ -67,7 +67,7 @@ PyTorch 提供张量、自动求导和 AdamW；分词器、线性层、归一化
 
 ## 实验结果
 
-设备：Apple M4、16 GiB 内存，MPS，FP32。下面是新跑的 1,500 步实验；[原 100 步记录](reports/README.md)保留不改。
+设备：Apple M4、16 GiB 内存，MPS，FP32。分别运行 100 步恢复实验和 1,500 步训练实验；下表为后者的结果。[100 步实验记录](reports/README.md)包含断点恢复结果。
 
 | 项目 | 实测 |
 | --- | --- |
@@ -90,7 +90,7 @@ PyTorch 提供张量、自动求导和 AdamW；分词器、线性层、归一化
 
 本表比较序列长度和未知片段数量；语言模型损失在固定分词器下另行评估。
 
-实际贪心生成：
+贪心生成样例：
 
 ```text
 Once upon a time, there was a little girl named who was a little girl named Tim ...
@@ -100,9 +100,9 @@ The little girl was very excited and he had a big tree. The little girl was so e
 
 比原来连续输出 `the` 多学到了一些词组，但仍有重复、语法与指代错误。后续增加独立故事数量，比较扩充数据与重复训练的差别；损失和生成质量分别记录。
 
-## 实际命令
+## 复现命令
 
-从仓库根目录进入本阶段。数据包解压后可跳过下载、分词和编码；重训请使用新的输出目录，避免覆盖已有实验。
+数据包包含原文、分词器和编码文件。以下命令从数据下载开始；使用数据包时从训练步骤开始。输出目录须为空。
 
 ```bash
 cd stages/01-basics
@@ -113,26 +113,27 @@ uv sync --locked --python 3.12
 .venv/bin/python -m aml.tokenizer --input data/week1-raw/train.txt --output data/week1-tokenizer.json --vocab-size 8192
 .venv/bin/python -m aml.data --train data/week1-raw/train.txt --val data/week1-raw/val.txt --tokenizer data/week1-tokenizer.json --output data/week1-tokens
 
-# 本次实际训练与结果整理
+# 训练与评估
+mkdir -p runs
 .venv/bin/python -m aml.train --config configs/100m-local.json --data data/week1-tokens --output runs/local-1500 --device mps --threads 1 > runs/local-1500.stdout.jsonl
 .venv/bin/python -m scripts.inspect_pipeline > runs/local-1500-inspection.json
 ```
 
-旧实验使用 `week1` 作为文件名中的运行标识。逐行说明收在[代码附录](docs/code/README.md)。
+各组件的逐行说明见[代码说明](docs/code/README.md)。
 
 ## 数据与权重
 
-小份原文、编码数据、分词器和两次训练的元数据随仓库保存在 [training-data.zip](artifacts/training-data.zip)，约 0.5 MB。授权和修改说明见 [DATA_NOTICE.txt](artifacts/DATA_NOTICE.txt)。
+[training-data.zip](artifacts/training-data.zip)约 0.5 MB，包含原文、编码数据、分词器和两次训练的元数据。许可和修改说明见 [DATA_NOTICE.txt](artifacts/DATA_NOTICE.txt)。
 
-完整权重放同仓库 Releases，不塞进 Git 历史：
+完整训练快照：
 
 | 实验 | 下载 |
 | --- | --- |
-| 原 100 步，包含恢复状态 | [stage1-100-updates](https://github.com/zongyangbigpolo/AdvancedMachineLearningTask/releases/tag/stage1-100-updates) |
-| 新 1,500 步，包含恢复状态 | [stage1-1500-updates](https://github.com/zongyangbigpolo/AdvancedMachineLearningTask/releases/tag/stage1-1500-updates) |
+| 100 步，包含恢复状态 | [stage1-100-updates](https://github.com/zongyangbigpolo/AdvancedMachineLearningTask/releases/tag/stage1-100-updates) |
+| 1,500 步，包含恢复状态 | [stage1-1500-updates](https://github.com/zongyangbigpolo/AdvancedMachineLearningTask/releases/tag/stage1-1500-updates) |
 
 ```bash
-# 仍在 stages/01-basics/；解压不会覆盖已有文件
+# 工作目录：stages/01-basics
 unzip -n artifacts/training-data.zip
 gh release download stage1-1500-updates --repo zongyangbigpolo/AdvancedMachineLearningTask \
   --pattern latest.pt --dir runs/local-1500
@@ -143,7 +144,7 @@ shasum -a 256 runs/local-1500/latest.pt
 
 ## 实验截图
 
-以下截图来自本次保存记录的浏览器页面；原始数值和完整日志分别在 [results.json](reports/local/results.json)、[metrics.jsonl](reports/local/metrics.jsonl) 和 [tests.log](reports/local/tests.log)。
+数值结果、逐步指标和测试输出分别见 [results.json](reports/local/results.json)、[metrics.jsonl](reports/local/metrics.jsonl) 和 [tests.log](reports/local/tests.log)。
 
 **分词对照与可逆性**
 
@@ -151,10 +152,10 @@ shasum -a 256 runs/local-1500/latest.pt
 
 **一亿参数模型的训练记录与曲线**
 
-![实际训练参数与结果](reports/local/training.png)
+![训练参数与结果](reports/local/training.png)
 ![验证损失曲线](reports/local/loss.png)
 
-**三组实际生成与组件检查**
+**三组生成与组件检查**
 
-![实际生成](reports/local/generation.png)
+![生成样例](reports/local/generation.png)
 ![组件检查输出](reports/local/checks.png)

@@ -14,6 +14,7 @@ def main() -> None:
     report = Path(__file__).resolve().parents[2] / args.stage / "reports"
     result = json.loads((report / "results.json").read_text())
     if args.stage == "02-systems":
+        title = "Stage 2: attention and decoding performance"
         sections = {
             "Attention: synchronized forward + backward, FP32, MPS": [
                 {"tokens": row["length"], "reference_ms": round(row["reference_forward_backward"]["median_ms"], 4),
@@ -31,6 +32,7 @@ def main() -> None:
             "Unmeasured hardware tasks": result["hardware_blocked"],
         }
     elif args.stage == "03-data-scaling":
+        title = "Stage 3: corpus cleaning and model scaling"
         card = result["data"]
         sections = {
             "Raw XML to cleaned, disjoint training and validation": {
@@ -45,6 +47,7 @@ def main() -> None:
             "Prediction made without the largest model": result["extrapolation"],
         }
     elif args.stage == "04-alignment":
+        title = "Stage 4: same-base post-training comparison"
         sections = {
             "Same-base, three-seed held-out comparison": result["comparison"],
             "First three answers and every error, seed 42": [
@@ -58,6 +61,7 @@ def main() -> None:
             },
         }
     else:
+        title = "Stage 5: sequential tool use and self-review"
         traces = json.loads((report / "traces.json").read_text())
         episode = next(row for row in traces if row["label"] == "plus_self_judge" and row["goals"] == 8)
         sections = {
@@ -81,7 +85,7 @@ def main() -> None:
                 "fresh_demo": json.loads((report / "demo.jsonl").read_text().splitlines()[-1]),
             },
         }
-    save_record(report, f"Measured experiment: {args.stage}", result, sections)
+    save_record(report, title, result, sections)
 
 
 if __name__ == "__main__":

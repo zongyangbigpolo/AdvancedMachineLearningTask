@@ -46,7 +46,6 @@ def save_record(directory: Path, title: str, result: dict, sections: dict[str, o
         "th,td{border:1px solid #cbd5e1;padding:8px;text-align:left;overflow-wrap:anywhere}"
         "th{background:#e8eef5}</style><main><header>"
         f"<h1>{html.escape(title)}</h1>"
-        "<p>Experiment configuration, measurements and results.</p>"
         f"<pre>{html.escape(record['command'])}</pre>"
         '<a href="results.json">Machine-readable results</a></header>'
         + ('<section id="curve"><h2>Measured validation loss</h2><img src="loss.svg" '
