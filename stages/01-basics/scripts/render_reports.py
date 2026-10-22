@@ -47,10 +47,11 @@ def main() -> None:
     elif args.stage == "04-alignment":
         sections = {
             "Same-base, three-seed held-out comparison": result["comparison"],
-            "Examples from every method, seed 42": [
+            "First three answers and every error, seed 42": [
                 {"method": run["method"], **example}
                 for run in result["runs"] if run["seed"] == 42
-                for example in run["test"]["examples"][:5]
+                for index, example in enumerate(run["test"]["examples"])
+                if index < 3 or not example["correct"]
             ],
             "Objective definitions and fair-budget protocol": {
                 key: result[key] for key in ("task", "policy", "base_sha256", "protocol", "sft", "dpo", "rlvr")

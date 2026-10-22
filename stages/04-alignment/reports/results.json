@@ -1,0 +1,2107 @@
+{
+  "command": "experiment.py --steps 250",
+  "python": "3.12.12",
+  "torch": "2.14.1",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "task": "max(a,b), integers 0..9; single digit answer",
+  "policy": "The same 10-digit candidate mask is used for all methods and the base",
+  "base_sha256": "52334b27dd291fd8089e0bad83684826fcef1139b89b795ad9a126a5265a3549",
+  "train_pairs": [
+    [
+      3,
+      8
+    ],
+    [
+      0,
+      6
+    ],
+    [
+      7,
+      7
+    ],
+    [
+      6,
+      9
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      4,
+      2
+    ],
+    [
+      9,
+      2
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      0,
+      8
+    ],
+    [
+      6,
+      3
+    ],
+    [
+      9,
+      3
+    ],
+    [
+      8,
+      0
+    ],
+    [
+      2,
+      2
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      9,
+      1
+    ],
+    [
+      1,
+      7
+    ],
+    [
+      4,
+      7
+    ],
+    [
+      9,
+      9
+    ],
+    [
+      9,
+      4
+    ],
+    [
+      5,
+      1
+    ],
+    [
+      0,
+      3
+    ],
+    [
+      4,
+      6
+    ],
+    [
+      9,
+      0
+    ],
+    [
+      0,
+      4
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      3,
+      9
+    ],
+    [
+      5,
+      9
+    ],
+    [
+      9,
+      5
+    ],
+    [
+      5,
+      5
+    ],
+    [
+      5,
+      2
+    ],
+    [
+      6,
+      1
+    ],
+    [
+      8,
+      3
+    ],
+    [
+      7,
+      2
+    ],
+    [
+      1,
+      6
+    ],
+    [
+      3,
+      3
+    ],
+    [
+      9,
+      7
+    ],
+    [
+      8,
+      8
+    ],
+    [
+      8,
+      7
+    ],
+    [
+      4,
+      9
+    ],
+    [
+      0,
+      7
+    ],
+    [
+      3,
+      1
+    ],
+    [
+      7,
+      4
+    ],
+    [
+      3,
+      7
+    ],
+    [
+      2,
+      5
+    ],
+    [
+      0,
+      5
+    ],
+    [
+      2,
+      7
+    ],
+    [
+      5,
+      8
+    ],
+    [
+      6,
+      7
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      8,
+      9
+    ],
+    [
+      8,
+      5
+    ],
+    [
+      1,
+      9
+    ],
+    [
+      8,
+      1
+    ],
+    [
+      5,
+      4
+    ],
+    [
+      6,
+      8
+    ],
+    [
+      4,
+      1
+    ],
+    [
+      8,
+      4
+    ],
+    [
+      6,
+      6
+    ],
+    [
+      2,
+      9
+    ],
+    [
+      6,
+      0
+    ],
+    [
+      1,
+      8
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      3,
+      5
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      4,
+      3
+    ],
+    [
+      0,
+      9
+    ],
+    [
+      9,
+      6
+    ],
+    [
+      4,
+      8
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      4,
+      4
+    ],
+    [
+      3,
+      2
+    ],
+    [
+      5,
+      0
+    ],
+    [
+      2,
+      6
+    ],
+    [
+      9,
+      8
+    ],
+    [
+      8,
+      6
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      5,
+      7
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      3,
+      6
+    ],
+    [
+      1,
+      4
+    ]
+  ],
+  "test_pairs": [
+    [
+      1,
+      0
+    ],
+    [
+      7,
+      8
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      3,
+      0
+    ],
+    [
+      5,
+      6
+    ],
+    [
+      7,
+      5
+    ],
+    [
+      6,
+      2
+    ],
+    [
+      7,
+      0
+    ],
+    [
+      7,
+      3
+    ],
+    [
+      5,
+      3
+    ],
+    [
+      7,
+      1
+    ],
+    [
+      7,
+      9
+    ],
+    [
+      7,
+      6
+    ],
+    [
+      2,
+      8
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      8,
+      2
+    ],
+    [
+      6,
+      5
+    ],
+    [
+      6,
+      4
+    ],
+    [
+      4,
+      0
+    ],
+    [
+      1,
+      5
+    ]
+  ],
+  "protocol": "Same frozen base, no SFT warm-start for DPO/RLVR; equal update/prompt budgets, measured unequal wall time",
+  "sft": "Answer-only negative log likelihood",
+  "dpo": "Reference-relative preference objective; beta=0.5; correct vs uniformly sampled wrong digit",
+  "rlvr": "On-policy REINFORCE, 8 one-token actions/prompt, leave-one-out baseline, exact verifier, KL coefficient 0.02",
+  "comparison": [
+    {
+      "method": "sft",
+      "mean_test_accuracy": 0.9,
+      "seed_test_accuracies": [
+        0.85,
+        0.95,
+        0.9
+      ],
+      "mean_training_seconds": 2.750740055227652,
+      "updates_per_seed": 250,
+      "prompts_per_seed": 8000,
+      "generated_rollouts_per_seed": 0
+    },
+    {
+      "method": "dpo",
+      "mean_test_accuracy": 0.9,
+      "seed_test_accuracies": [
+        0.95,
+        0.9,
+        0.85
+      ],
+      "mean_training_seconds": 3.599068513683354,
+      "updates_per_seed": 250,
+      "prompts_per_seed": 8000,
+      "generated_rollouts_per_seed": 0
+    },
+    {
+      "method": "rlvr",
+      "mean_test_accuracy": 0.85,
+      "seed_test_accuracies": [
+        0.85,
+        0.85,
+        0.85
+      ],
+      "mean_training_seconds": 3.4177725832754127,
+      "updates_per_seed": 250,
+      "prompts_per_seed": 8000,
+      "generated_rollouts_per_seed": 64000
+    }
+  ],
+  "runs": [
+    {
+      "method": "sft",
+      "seed": 42,
+      "base_sha256": "52334b27dd291fd8089e0bad83684826fcef1139b89b795ad9a126a5265a3549",
+      "parameters": 289248,
+      "updates": 250,
+      "prompts_seen": 8000,
+      "base_test_accuracy": 0.05,
+      "train_accuracy": 1.0,
+      "test": {
+        "correct": 17.0,
+        "total": 20,
+        "examples": [
+          {
+            "prompt": "max(1,0)=",
+            "answer": 1,
+            "expected": 1,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,8)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(0,0)=",
+            "answer": 1,
+            "expected": 0,
+            "correct": false
+          },
+          {
+            "prompt": "max(3,0)=",
+            "answer": 3,
+            "expected": 3,
+            "correct": true
+          },
+          {
+            "prompt": "max(5,6)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,5)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(6,2)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,0)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,3)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(5,3)=",
+            "answer": 5,
+            "expected": 5,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,1)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,9)=",
+            "answer": 9,
+            "expected": 9,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,6)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(2,8)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(1,3)=",
+            "answer": 3,
+            "expected": 3,
+            "correct": true
+          },
+          {
+            "prompt": "max(8,2)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(6,5)=",
+            "answer": 5,
+            "expected": 6,
+            "correct": false
+          },
+          {
+            "prompt": "max(6,4)=",
+            "answer": 4,
+            "expected": 6,
+            "correct": false
+          },
+          {
+            "prompt": "max(4,0)=",
+            "answer": 4,
+            "expected": 4,
+            "correct": true
+          },
+          {
+            "prompt": "max(1,5)=",
+            "answer": 5,
+            "expected": 5,
+            "correct": true
+          }
+        ],
+        "accuracy": 0.85
+      },
+      "seconds": 2.997454874916002,
+      "curve": [
+        {
+          "step": 25,
+          "training_objective": 1.0154662132263184
+        },
+        {
+          "step": 50,
+          "training_objective": 0.14069202542304993
+        },
+        {
+          "step": 75,
+          "training_objective": 0.02797243744134903
+        },
+        {
+          "step": 100,
+          "training_objective": 0.015256745740771294
+        },
+        {
+          "step": 125,
+          "training_objective": 0.010548294521868229
+        },
+        {
+          "step": 150,
+          "training_objective": 0.00751588074490428
+        },
+        {
+          "step": 175,
+          "training_objective": 0.006589632015675306
+        },
+        {
+          "step": 200,
+          "training_objective": 0.005705542396754026
+        },
+        {
+          "step": 225,
+          "training_objective": 0.004038939252495766
+        },
+        {
+          "step": 250,
+          "training_objective": 0.003267831401899457
+        }
+      ],
+      "generated_rollouts": 0,
+      "correct_rollouts": 0,
+      "checkpoint_sha256": "110875733133ec920eadac91cfd923728bc68eefcdd6b624a131282e6de4f8db"
+    },
+    {
+      "method": "sft",
+      "seed": 43,
+      "base_sha256": "52334b27dd291fd8089e0bad83684826fcef1139b89b795ad9a126a5265a3549",
+      "parameters": 289248,
+      "updates": 250,
+      "prompts_seen": 8000,
+      "base_test_accuracy": 0.05,
+      "train_accuracy": 1.0,
+      "test": {
+        "correct": 19.0,
+        "total": 20,
+        "examples": [
+          {
+            "prompt": "max(1,0)=",
+            "answer": 1,
+            "expected": 1,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,8)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(0,0)=",
+            "answer": 2,
+            "expected": 0,
+            "correct": false
+          },
+          {
+            "prompt": "max(3,0)=",
+            "answer": 3,
+            "expected": 3,
+            "correct": true
+          },
+          {
+            "prompt": "max(5,6)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,5)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(6,2)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,0)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,3)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(5,3)=",
+            "answer": 5,
+            "expected": 5,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,1)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,9)=",
+            "answer": 9,
+            "expected": 9,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,6)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(2,8)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(1,3)=",
+            "answer": 3,
+            "expected": 3,
+            "correct": true
+          },
+          {
+            "prompt": "max(8,2)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(6,5)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(6,4)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(4,0)=",
+            "answer": 4,
+            "expected": 4,
+            "correct": true
+          },
+          {
+            "prompt": "max(1,5)=",
+            "answer": 5,
+            "expected": 5,
+            "correct": true
+          }
+        ],
+        "accuracy": 0.95
+      },
+      "seconds": 2.9782070408109576,
+      "curve": [
+        {
+          "step": 25,
+          "training_objective": 1.0884696245193481
+        },
+        {
+          "step": 50,
+          "training_objective": 0.17494045197963715
+        },
+        {
+          "step": 75,
+          "training_objective": 0.04159362614154816
+        },
+        {
+          "step": 100,
+          "training_objective": 0.018512284383177757
+        },
+        {
+          "step": 125,
+          "training_objective": 0.012143662199378014
+        },
+        {
+          "step": 150,
+          "training_objective": 0.009434999898076057
+        },
+        {
+          "step": 175,
+          "training_objective": 0.00598008232191205
+        },
+        {
+          "step": 200,
+          "training_objective": 0.005577890668064356
+        },
+        {
+          "step": 225,
+          "training_objective": 0.003617454320192337
+        },
+        {
+          "step": 250,
+          "training_objective": 0.0037228253204375505
+        }
+      ],
+      "generated_rollouts": 0,
+      "correct_rollouts": 0,
+      "checkpoint_sha256": "05b00ace8b6424bef0d7632c684418581592a77fac7aedd5943b8bc941f3738a"
+    },
+    {
+      "method": "sft",
+      "seed": 44,
+      "base_sha256": "52334b27dd291fd8089e0bad83684826fcef1139b89b795ad9a126a5265a3549",
+      "parameters": 289248,
+      "updates": 250,
+      "prompts_seen": 8000,
+      "base_test_accuracy": 0.05,
+      "train_accuracy": 1.0,
+      "test": {
+        "correct": 18.0,
+        "total": 20,
+        "examples": [
+          {
+            "prompt": "max(1,0)=",
+            "answer": 1,
+            "expected": 1,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,8)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(0,0)=",
+            "answer": 1,
+            "expected": 0,
+            "correct": false
+          },
+          {
+            "prompt": "max(3,0)=",
+            "answer": 3,
+            "expected": 3,
+            "correct": true
+          },
+          {
+            "prompt": "max(5,6)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,5)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(6,2)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,0)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,3)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(5,3)=",
+            "answer": 5,
+            "expected": 5,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,1)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,9)=",
+            "answer": 9,
+            "expected": 9,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,6)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(2,8)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(1,3)=",
+            "answer": 3,
+            "expected": 3,
+            "correct": true
+          },
+          {
+            "prompt": "max(8,2)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(6,5)=",
+            "answer": 5,
+            "expected": 6,
+            "correct": false
+          },
+          {
+            "prompt": "max(6,4)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(4,0)=",
+            "answer": 4,
+            "expected": 4,
+            "correct": true
+          },
+          {
+            "prompt": "max(1,5)=",
+            "answer": 5,
+            "expected": 5,
+            "correct": true
+          }
+        ],
+        "accuracy": 0.9
+      },
+      "seconds": 2.276558249955997,
+      "curve": [
+        {
+          "step": 25,
+          "training_objective": 0.8977406024932861
+        },
+        {
+          "step": 50,
+          "training_objective": 0.18992167711257935
+        },
+        {
+          "step": 75,
+          "training_objective": 0.03132198750972748
+        },
+        {
+          "step": 100,
+          "training_objective": 0.015530339442193508
+        },
+        {
+          "step": 125,
+          "training_objective": 0.011491813696920872
+        },
+        {
+          "step": 150,
+          "training_objective": 0.006468750070780516
+        },
+        {
+          "step": 175,
+          "training_objective": 0.006842716131359339
+        },
+        {
+          "step": 200,
+          "training_objective": 0.005140979774296284
+        },
+        {
+          "step": 225,
+          "training_objective": 0.003999731503427029
+        },
+        {
+          "step": 250,
+          "training_objective": 0.003517840290442109
+        }
+      ],
+      "generated_rollouts": 0,
+      "correct_rollouts": 0,
+      "checkpoint_sha256": "62c86f64ad2a5fccf50a3550b38364550c23b5d0e7b1243f14d98108aeae8dc6"
+    },
+    {
+      "method": "dpo",
+      "seed": 42,
+      "base_sha256": "52334b27dd291fd8089e0bad83684826fcef1139b89b795ad9a126a5265a3549",
+      "parameters": 289248,
+      "updates": 250,
+      "prompts_seen": 8000,
+      "base_test_accuracy": 0.05,
+      "train_accuracy": 1.0,
+      "test": {
+        "correct": 19.0,
+        "total": 20,
+        "examples": [
+          {
+            "prompt": "max(1,0)=",
+            "answer": 1,
+            "expected": 1,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,8)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(0,0)=",
+            "answer": 1,
+            "expected": 0,
+            "correct": false
+          },
+          {
+            "prompt": "max(3,0)=",
+            "answer": 3,
+            "expected": 3,
+            "correct": true
+          },
+          {
+            "prompt": "max(5,6)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,5)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(6,2)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,0)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,3)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(5,3)=",
+            "answer": 5,
+            "expected": 5,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,1)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,9)=",
+            "answer": 9,
+            "expected": 9,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,6)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(2,8)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(1,3)=",
+            "answer": 3,
+            "expected": 3,
+            "correct": true
+          },
+          {
+            "prompt": "max(8,2)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(6,5)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(6,4)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(4,0)=",
+            "answer": 4,
+            "expected": 4,
+            "correct": true
+          },
+          {
+            "prompt": "max(1,5)=",
+            "answer": 5,
+            "expected": 5,
+            "correct": true
+          }
+        ],
+        "accuracy": 0.95
+      },
+      "seconds": 3.65147970803082,
+      "curve": [
+        {
+          "step": 25,
+          "training_objective": 0.35225433111190796
+        },
+        {
+          "step": 50,
+          "training_objective": 0.1596396416425705
+        },
+        {
+          "step": 75,
+          "training_objective": 0.0783240795135498
+        },
+        {
+          "step": 100,
+          "training_objective": 0.05872538313269615
+        },
+        {
+          "step": 125,
+          "training_objective": 0.03517216071486473
+        },
+        {
+          "step": 150,
+          "training_objective": 0.027396565303206444
+        },
+        {
+          "step": 175,
+          "training_objective": 0.015918416902422905
+        },
+        {
+          "step": 200,
+          "training_objective": 0.015894431620836258
+        },
+        {
+          "step": 225,
+          "training_objective": 0.012555648572742939
+        },
+        {
+          "step": 250,
+          "training_objective": 0.008267387747764587
+        }
+      ],
+      "generated_rollouts": 0,
+      "correct_rollouts": 0,
+      "checkpoint_sha256": "d3aaa70f9ea821e5cdbbd64c0a651a69a9e0bf1b494faf2670f1ece42893ca36"
+    },
+    {
+      "method": "dpo",
+      "seed": 43,
+      "base_sha256": "52334b27dd291fd8089e0bad83684826fcef1139b89b795ad9a126a5265a3549",
+      "parameters": 289248,
+      "updates": 250,
+      "prompts_seen": 8000,
+      "base_test_accuracy": 0.05,
+      "train_accuracy": 1.0,
+      "test": {
+        "correct": 18.0,
+        "total": 20,
+        "examples": [
+          {
+            "prompt": "max(1,0)=",
+            "answer": 1,
+            "expected": 1,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,8)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(0,0)=",
+            "answer": 1,
+            "expected": 0,
+            "correct": false
+          },
+          {
+            "prompt": "max(3,0)=",
+            "answer": 3,
+            "expected": 3,
+            "correct": true
+          },
+          {
+            "prompt": "max(5,6)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,5)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(6,2)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,0)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,3)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(5,3)=",
+            "answer": 5,
+            "expected": 5,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,1)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,9)=",
+            "answer": 9,
+            "expected": 9,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,6)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(2,8)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(1,3)=",
+            "answer": 3,
+            "expected": 3,
+            "correct": true
+          },
+          {
+            "prompt": "max(8,2)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(6,5)=",
+            "answer": 5,
+            "expected": 6,
+            "correct": false
+          },
+          {
+            "prompt": "max(6,4)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(4,0)=",
+            "answer": 4,
+            "expected": 4,
+            "correct": true
+          },
+          {
+            "prompt": "max(1,5)=",
+            "answer": 5,
+            "expected": 5,
+            "correct": true
+          }
+        ],
+        "accuracy": 0.9
+      },
+      "seconds": 3.305605083005503,
+      "curve": [
+        {
+          "step": 25,
+          "training_objective": 0.3593423664569855
+        },
+        {
+          "step": 50,
+          "training_objective": 0.15697629749774933
+        },
+        {
+          "step": 75,
+          "training_objective": 0.12348475307226181
+        },
+        {
+          "step": 100,
+          "training_objective": 0.05299699306488037
+        },
+        {
+          "step": 125,
+          "training_objective": 0.028808163478970528
+        },
+        {
+          "step": 150,
+          "training_objective": 0.025349188596010208
+        },
+        {
+          "step": 175,
+          "training_objective": 0.0203560683876276
+        },
+        {
+          "step": 200,
+          "training_objective": 0.016731172800064087
+        },
+        {
+          "step": 225,
+          "training_objective": 0.012156743556261063
+        },
+        {
+          "step": 250,
+          "training_objective": 0.008869475685060024
+        }
+      ],
+      "generated_rollouts": 0,
+      "correct_rollouts": 0,
+      "checkpoint_sha256": "f2b77af131adaa9a3c3c482036335ce6aa59c6d5bb4b778ed694075a44ec306c"
+    },
+    {
+      "method": "dpo",
+      "seed": 44,
+      "base_sha256": "52334b27dd291fd8089e0bad83684826fcef1139b89b795ad9a126a5265a3549",
+      "parameters": 289248,
+      "updates": 250,
+      "prompts_seen": 8000,
+      "base_test_accuracy": 0.05,
+      "train_accuracy": 1.0,
+      "test": {
+        "correct": 17.0,
+        "total": 20,
+        "examples": [
+          {
+            "prompt": "max(1,0)=",
+            "answer": 1,
+            "expected": 1,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,8)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(0,0)=",
+            "answer": 1,
+            "expected": 0,
+            "correct": false
+          },
+          {
+            "prompt": "max(3,0)=",
+            "answer": 3,
+            "expected": 3,
+            "correct": true
+          },
+          {
+            "prompt": "max(5,6)=",
+            "answer": 5,
+            "expected": 6,
+            "correct": false
+          },
+          {
+            "prompt": "max(7,5)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(6,2)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,0)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,3)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(5,3)=",
+            "answer": 5,
+            "expected": 5,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,1)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,9)=",
+            "answer": 9,
+            "expected": 9,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,6)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(2,8)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(1,3)=",
+            "answer": 3,
+            "expected": 3,
+            "correct": true
+          },
+          {
+            "prompt": "max(8,2)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(6,5)=",
+            "answer": 5,
+            "expected": 6,
+            "correct": false
+          },
+          {
+            "prompt": "max(6,4)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(4,0)=",
+            "answer": 4,
+            "expected": 4,
+            "correct": true
+          },
+          {
+            "prompt": "max(1,5)=",
+            "answer": 5,
+            "expected": 5,
+            "correct": true
+          }
+        ],
+        "accuracy": 0.85
+      },
+      "seconds": 3.840120750013739,
+      "curve": [
+        {
+          "step": 25,
+          "training_objective": 0.3369053900241852
+        },
+        {
+          "step": 50,
+          "training_objective": 0.14296558499336243
+        },
+        {
+          "step": 75,
+          "training_objective": 0.08356346189975739
+        },
+        {
+          "step": 100,
+          "training_objective": 0.04771006107330322
+        },
+        {
+          "step": 125,
+          "training_objective": 0.029578417539596558
+        },
+        {
+          "step": 150,
+          "training_objective": 0.029855985194444656
+        },
+        {
+          "step": 175,
+          "training_objective": 0.015220164321362972
+        },
+        {
+          "step": 200,
+          "training_objective": 0.015131806023418903
+        },
+        {
+          "step": 225,
+          "training_objective": 0.009956936351954937
+        },
+        {
+          "step": 250,
+          "training_objective": 0.008865069597959518
+        }
+      ],
+      "generated_rollouts": 0,
+      "correct_rollouts": 0,
+      "checkpoint_sha256": "90b496b82b0cc70cf1caa97d03aad0f4165f3bc6fbed4f5aed39418a1cc77f59"
+    },
+    {
+      "method": "rlvr",
+      "seed": 42,
+      "base_sha256": "52334b27dd291fd8089e0bad83684826fcef1139b89b795ad9a126a5265a3549",
+      "parameters": 289248,
+      "updates": 250,
+      "prompts_seen": 8000,
+      "base_test_accuracy": 0.05,
+      "train_accuracy": 0.975,
+      "test": {
+        "correct": 17.0,
+        "total": 20,
+        "examples": [
+          {
+            "prompt": "max(1,0)=",
+            "answer": 1,
+            "expected": 1,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,8)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(0,0)=",
+            "answer": 1,
+            "expected": 0,
+            "correct": false
+          },
+          {
+            "prompt": "max(3,0)=",
+            "answer": 3,
+            "expected": 3,
+            "correct": true
+          },
+          {
+            "prompt": "max(5,6)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,5)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(6,2)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,0)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,3)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(5,3)=",
+            "answer": 5,
+            "expected": 5,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,1)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,9)=",
+            "answer": 9,
+            "expected": 9,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,6)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(2,8)=",
+            "answer": 2,
+            "expected": 8,
+            "correct": false
+          },
+          {
+            "prompt": "max(1,3)=",
+            "answer": 3,
+            "expected": 3,
+            "correct": true
+          },
+          {
+            "prompt": "max(8,2)=",
+            "answer": 2,
+            "expected": 8,
+            "correct": false
+          },
+          {
+            "prompt": "max(6,5)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(6,4)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(4,0)=",
+            "answer": 4,
+            "expected": 4,
+            "correct": true
+          },
+          {
+            "prompt": "max(1,5)=",
+            "answer": 5,
+            "expected": 5,
+            "correct": true
+          }
+        ],
+        "accuracy": 0.85
+      },
+      "seconds": 3.1180596670601517,
+      "curve": [
+        {
+          "step": 25,
+          "training_objective": -0.02140190079808235
+        },
+        {
+          "step": 50,
+          "training_objective": -0.07567945122718811
+        },
+        {
+          "step": 75,
+          "training_objective": -0.16514694690704346
+        },
+        {
+          "step": 100,
+          "training_objective": -0.08776505291461945
+        },
+        {
+          "step": 125,
+          "training_objective": -0.15130764245986938
+        },
+        {
+          "step": 150,
+          "training_objective": 0.0017474442720413208
+        },
+        {
+          "step": 175,
+          "training_objective": -0.029904313385486603
+        },
+        {
+          "step": 200,
+          "training_objective": 0.004181921482086182
+        },
+        {
+          "step": 225,
+          "training_objective": 0.02909242920577526
+        },
+        {
+          "step": 250,
+          "training_objective": 0.05301893129944801
+        }
+      ],
+      "generated_rollouts": 64000,
+      "correct_rollouts": 50142,
+      "checkpoint_sha256": "a06af0522c46e9c4083f0fba61be40bc487bdca604233a3af02362a6d15c87b3"
+    },
+    {
+      "method": "rlvr",
+      "seed": 43,
+      "base_sha256": "52334b27dd291fd8089e0bad83684826fcef1139b89b795ad9a126a5265a3549",
+      "parameters": 289248,
+      "updates": 250,
+      "prompts_seen": 8000,
+      "base_test_accuracy": 0.05,
+      "train_accuracy": 0.975,
+      "test": {
+        "correct": 17.0,
+        "total": 20,
+        "examples": [
+          {
+            "prompt": "max(1,0)=",
+            "answer": 2,
+            "expected": 1,
+            "correct": false
+          },
+          {
+            "prompt": "max(7,8)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(0,0)=",
+            "answer": 2,
+            "expected": 0,
+            "correct": false
+          },
+          {
+            "prompt": "max(3,0)=",
+            "answer": 3,
+            "expected": 3,
+            "correct": true
+          },
+          {
+            "prompt": "max(5,6)=",
+            "answer": 5,
+            "expected": 6,
+            "correct": false
+          },
+          {
+            "prompt": "max(7,5)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(6,2)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,0)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,3)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(5,3)=",
+            "answer": 5,
+            "expected": 5,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,1)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,9)=",
+            "answer": 9,
+            "expected": 9,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,6)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(2,8)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(1,3)=",
+            "answer": 3,
+            "expected": 3,
+            "correct": true
+          },
+          {
+            "prompt": "max(8,2)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(6,5)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(6,4)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(4,0)=",
+            "answer": 4,
+            "expected": 4,
+            "correct": true
+          },
+          {
+            "prompt": "max(1,5)=",
+            "answer": 5,
+            "expected": 5,
+            "correct": true
+          }
+        ],
+        "accuracy": 0.85
+      },
+      "seconds": 4.293473457917571,
+      "curve": [
+        {
+          "step": 25,
+          "training_objective": -0.18928751349449158
+        },
+        {
+          "step": 50,
+          "training_objective": -0.373727411031723
+        },
+        {
+          "step": 75,
+          "training_objective": -0.2321130931377411
+        },
+        {
+          "step": 100,
+          "training_objective": -0.08800382912158966
+        },
+        {
+          "step": 125,
+          "training_objective": -0.02711089327931404
+        },
+        {
+          "step": 150,
+          "training_objective": -0.043666496872901917
+        },
+        {
+          "step": 175,
+          "training_objective": -0.0467945896089077
+        },
+        {
+          "step": 200,
+          "training_objective": 0.018826793879270554
+        },
+        {
+          "step": 225,
+          "training_objective": 0.05184536799788475
+        },
+        {
+          "step": 250,
+          "training_objective": 0.027228757739067078
+        }
+      ],
+      "generated_rollouts": 64000,
+      "correct_rollouts": 53733,
+      "checkpoint_sha256": "2a2f492261449af9de2395e06a77aafd7f5bbf2dabe41907938df64263395902"
+    },
+    {
+      "method": "rlvr",
+      "seed": 44,
+      "base_sha256": "52334b27dd291fd8089e0bad83684826fcef1139b89b795ad9a126a5265a3549",
+      "parameters": 289248,
+      "updates": 250,
+      "prompts_seen": 8000,
+      "base_test_accuracy": 0.05,
+      "train_accuracy": 1.0,
+      "test": {
+        "correct": 17.0,
+        "total": 20,
+        "examples": [
+          {
+            "prompt": "max(1,0)=",
+            "answer": 1,
+            "expected": 1,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,8)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(0,0)=",
+            "answer": 1,
+            "expected": 0,
+            "correct": false
+          },
+          {
+            "prompt": "max(3,0)=",
+            "answer": 3,
+            "expected": 3,
+            "correct": true
+          },
+          {
+            "prompt": "max(5,6)=",
+            "answer": 5,
+            "expected": 6,
+            "correct": false
+          },
+          {
+            "prompt": "max(7,5)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(6,2)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,0)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,3)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(5,3)=",
+            "answer": 5,
+            "expected": 5,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,1)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,9)=",
+            "answer": 9,
+            "expected": 9,
+            "correct": true
+          },
+          {
+            "prompt": "max(7,6)=",
+            "answer": 7,
+            "expected": 7,
+            "correct": true
+          },
+          {
+            "prompt": "max(2,8)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(1,3)=",
+            "answer": 3,
+            "expected": 3,
+            "correct": true
+          },
+          {
+            "prompt": "max(8,2)=",
+            "answer": 8,
+            "expected": 8,
+            "correct": true
+          },
+          {
+            "prompt": "max(6,5)=",
+            "answer": 5,
+            "expected": 6,
+            "correct": false
+          },
+          {
+            "prompt": "max(6,4)=",
+            "answer": 6,
+            "expected": 6,
+            "correct": true
+          },
+          {
+            "prompt": "max(4,0)=",
+            "answer": 4,
+            "expected": 4,
+            "correct": true
+          },
+          {
+            "prompt": "max(1,5)=",
+            "answer": 5,
+            "expected": 5,
+            "correct": true
+          }
+        ],
+        "accuracy": 0.85
+      },
+      "seconds": 2.841784624848515,
+      "curve": [
+        {
+          "step": 25,
+          "training_objective": -0.25316959619522095
+        },
+        {
+          "step": 50,
+          "training_objective": -0.18287412822246552
+        },
+        {
+          "step": 75,
+          "training_objective": -0.19667913019657135
+        },
+        {
+          "step": 100,
+          "training_objective": -0.012813575565814972
+        },
+        {
+          "step": 125,
+          "training_objective": -0.08534081280231476
+        },
+        {
+          "step": 150,
+          "training_objective": -0.023741409182548523
+        },
+        {
+          "step": 175,
+          "training_objective": -0.03573586419224739
+        },
+        {
+          "step": 200,
+          "training_objective": 0.018102388828992844
+        },
+        {
+          "step": 225,
+          "training_objective": 0.05074302479624748
+        },
+        {
+          "step": 250,
+          "training_objective": -0.02443002164363861
+        }
+      ],
+      "generated_rollouts": 64000,
+      "correct_rollouts": 53010,
+      "checkpoint_sha256": "ddf03debf3c3e79435710b7385d8a60687f57ee23119f7ed7626064e37ff0420"
+    }
+  ]
+}

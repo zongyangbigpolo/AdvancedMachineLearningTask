@@ -7,7 +7,7 @@
 | [01 基础](stages/01-basics/README.md) | 手写分词器和 Transformer，训练约一亿参数模型 | 98M 模型 1,500 步、分词对照、生成、五张截图、数据包及权重下载 |
 | [02 系统](stages/02-systems/README.md) | 注意力内核、多卡、训练与推理性能 | Mac 注意力与 KV 缓存实测；Triton、多卡待设备 |
 | [03 数据与规模](stages/03-data-scaling/README.md) | 原始数据清洗、规模实验、拟合与外推 | 原始 XML 清洗、15 次训练、最大模型留出误差 0.86% |
-| [04 对齐](stages/04-alignment/README.md) | 同一基座的 SFT、DPO、RLVR 对照 | 待提交 |
+| [04 对齐](stages/04-alignment/README.md) | 同一基座的 SFT、DPO、RLVR 对照 | 同基座 9 次训练；数字任务平均正确率 90% / 90% / 85% |
 | [05 智能体](stages/05-agents/README.md) | 可验证环境、运行框架、长程训练与自评循环 | 待提交 |
 
 本次使用本机 Apple M4，不租 GPU。Triton 和多 GPU 实测保留为待补项，其余项目以各阶段实际记录为准。每阶段整理完单独提交并 push 到 `main`。
